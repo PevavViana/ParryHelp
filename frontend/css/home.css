@@ -1,0 +1,136 @@
+/* ============================================
+   Taxatio — home.css
+   Específico da página inicial (hero de tela
+   cheia). Depende de base.css já carregado
+   antes deste arquivo.
+   ============================================ */
+
+body.page-home{
+  display: flex;
+  flex-direction: column;
+}
+
+.hero{
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.hero-content{
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.hero-content::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top: -10%;
+  left: 50%;
+  width: 140%;
+  height: 120%;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(6,10,31,0.55), transparent 72%);
+  pointer-events:none;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  background: rgba(122,147,255,0.12);
+  border: 1px solid rgba(122,147,255,0.28);
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  margin: 0 0 26px;
+}
+.eyebrow-dot{
+  width:6px; height:6px;
+  border-radius:50%;
+  background: var(--accent-blue-2);
+  box-shadow: 0 0 8px var(--accent-blue-2);
+}
+
+.hero-title{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 22px;
+  color: var(--white-soft);
+}
+.hero-title-accent{
+  display:block;
+  margin-top: 6px;
+  background: linear-gradient(96deg, #6a86ff 0%, #a9b8ff 45%, #6a86ff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 6s linear infinite;
+}
+@keyframes shine{
+  to{ background-position: 200% center; }
+}
+
+.hero-subtitle{
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--white-dim);
+  max-width: 520px;
+  margin: 0 0 36px;
+}
+
+.hero-cta-row{
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  gap: 16px;
+}
+
+.btn-primary::before{
+  content:"";
+  position:absolute;
+  top:0; left:-60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-20deg);
+  animation: sweep 4.5s ease-in-out infinite;
+}
+@keyframes sweep{
+  0%{ left:-60%; }
+  40%,100%{ left: 140%; }
+}
+
+.link-secondary{
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--white-faint);
+  transition: color .18s ease;
+}
+.link-secondary:hover{ color: var(--accent-blue-2); }
+
+@media (max-width: 640px){
+  .hero{ padding: 40px 18px; }
+  .eyebrow{ font-size: 11px; padding: 6px 12px; text-align:center; }
+  .hero-content::before{ width: 180%; height: 130%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hero-title-accent, .btn-primary::before{ animation: none !important; }
+}
