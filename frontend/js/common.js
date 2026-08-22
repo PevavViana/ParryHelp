@@ -1,130 +1,181 @@
-/* ============================================
-   Taxatio — common.js
-   Comportamento compartilhado entre páginas:
-   sombra do header ao rolar + fábrica do
-   campo de formas flutuantes do fundo.
-   Carregar antes do JS específico da página.
-   ============================================ */
+const API_URL = "http://127.0.0.1:5000";
 
-window.Taxatio = (function () {
-  "use strict";
+const modal = document.querySelector("[data-auth-modal]");
+const toast = document.querySelector("[data-toast]");
+const registerFields = document.querySelectorAll("[data-register-field]");
+const title = document.querySelector("#auth-title");
 
-  const icons = {
-    circleFilled: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="${c}"/></svg>`,
-    circleOutline: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="${c}" stroke-width="1.6" fill="none"/></svg>`,
-    triangleOutline: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 3 L21 20 H3 Z" stroke="${c}" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>`,
-    triangleSmall: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M6 4 L20 12 L6 20 Z" stroke="${c}" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>`,
-    square: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="${c}" stroke-width="1.6" fill="none"/></svg>`,
-    squareFilled: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="${c}"/></svg>`,
-    diamond: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" stroke="${c}" stroke-width="1.6" fill="none" transform="rotate(45 12 12)"/></svg>`,
-    plus: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 3 V21 M3 12 H21" stroke="${c}" stroke-width="2.2" stroke-linecap="round"/></svg>`,
-    plusThick: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 2 V22 M2 12 H22" stroke="${c}" stroke-width="4.5" stroke-linecap="round"/></svg>`,
-    x: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 5 L5 19" stroke="${c}" stroke-width="2" stroke-linecap="round"/></svg>`,
-    sparkle: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 2 L12 22 M2 12 L22 12 M5 5 L19 19 M19 5 L5 19" stroke="${c}" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/></svg>`,
-    asterisk: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 4 V20 M5 8 L19 16 M19 8 L5 16" stroke="${c}" stroke-width="1.6" stroke-linecap="round"/></svg>`,
-    ring: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke="${c}" stroke-width="1.5" fill="none"/></svg>`,
-    chevron: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M9 5 L16 12 L9 19" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`,
-    dot: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="${c}"/></svg>`,
-    plane: (s, c) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M21 3 L3 10.5 L11 13 L13.5 21 Z" stroke="${c}" stroke-width="1.4" stroke-linejoin="round" fill="${c}" fill-opacity="0.25"/></svg>`,
-  };
-
-  const PALETTE = {
-    bright: "#3b5bff",
-    soft: "#c9d2ff",
-    faint: "rgba(237,239,253,0.55)",
-  };
-
-  /**
-   * Cria o campo de formas flutuantes dentro de um container.
-   * @param {Object} opts
-   * @param {string} opts.containerId - id do elemento onde as formas entram
-   * @param {Array}  opts.layout - array de { icon, x, y, size, color, depth }
-   * @param {number} [opts.narrowBreakpoint=760] - abaixo disso, só formas de canto
-   * @param {number} [opts.parallaxStrength=26] - intensidade do parallax em px
-   */
-  function createShapeField(opts) {
-    const field = document.getElementById(opts.containerId);
-    if (!field) return;
-
-    const narrowBreakpoint = opts.narrowBreakpoint || 760;
-    const parallaxStrength = opts.parallaxStrength || 26;
-    const isNarrow = window.innerWidth < narrowBreakpoint;
-
-    const visibleLayout = isNarrow
-      ? opts.layout.filter((item) => item.x <= 14 || item.x >= 86)
-      : opts.layout;
-
-    const frag = document.createDocumentFragment();
-    const wraps = [];
-
-    visibleLayout.forEach((item) => {
-      const wrap = document.createElement("div");
-      wrap.className = "shape-wrap";
-      wrap.style.left = item.x + "%";
-      wrap.style.top = item.y + "%";
-      wrap.dataset.depth = item.depth;
-
-      const inner = document.createElement("div");
-      inner.className = "shape";
-      const dur = (7 + Math.random() * 8).toFixed(1);
-      const delay = (-Math.random() * dur).toFixed(1);
-      const tx = (Math.random() * 26 - 13).toFixed(0);
-      const ty = (Math.random() * 26 - 13).toFixed(0);
-      const rot = (Math.random() * 16 - 8).toFixed(0);
-      inner.style.setProperty("--dur", dur + "s");
-      inner.style.setProperty("--delay", delay + "s");
-      inner.style.setProperty("--tx", tx + "px");
-      inner.style.setProperty("--ty", ty + "px");
-      inner.style.setProperty("--rot", rot + "deg");
-
-      const size = isNarrow ? Math.round(item.size * 0.65) : item.size;
-      inner.innerHTML = icons[item.icon](size, item.color);
-      inner.style.opacity = isNarrow ? 0.8 : 0.85;
-
-      wrap.appendChild(inner);
-      frag.appendChild(wrap);
-      wraps.push(wrap);
+async function apiFetch(path, options = {}) {
+    const resposta = await fetch(`${API_URL}${path}`, {
+        headers: {
+            "Content-Type": "application/json",
+            ...(options.headers || {}),
+        },
+        ...options,
     });
 
-    field.appendChild(frag);
+    const texto = await resposta.text();
+    const dados = texto ? JSON.parse(texto) : null;
 
-    // parallax suave com o mouse, relativo à janela inteira
-    let rafId = null;
-    let targetX = 0, targetY = 0;
-
-    window.addEventListener("mousemove", (e) => {
-      targetX = e.clientX / window.innerWidth - 0.5;
-      targetY = e.clientY / window.innerHeight - 0.5;
-      if (!rafId) rafId = requestAnimationFrame(applyParallax);
-    });
-
-    function applyParallax() {
-      wraps.forEach((wrap) => {
-        const depth = parseFloat(wrap.dataset.depth) || 0.6;
-        const px = targetX * parallaxStrength * depth;
-        const py = targetY * parallaxStrength * depth;
-        wrap.style.transform = `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px)`;
-      });
-      rafId = null;
+    if (!resposta.ok) {
+        throw new Error(dados?.erro || "Não foi possível concluir a operação.");
     }
-  }
 
-  function initHeaderScroll() {
-    const header = document.getElementById("siteHeader");
-    if (!header) return;
-    window.addEventListener(
-      "scroll",
-      () => {
-        header.style.boxShadow = window.scrollY > 8 ? "0 12px 28px rgba(2,4,16,0.35)" : "none";
-      },
-      { passive: true }
-    );
-  }
+    return dados;
+}
 
-  return {
-    icons,
-    PALETTE,
-    createShapeField,
-    initHeaderScroll,
-  };
-})();
+function mostrarMensagem(texto, erro = false) {
+    if (!toast) return;
+
+    toast.textContent = texto;
+    toast.style.borderColor = erro ? "var(--red)" : "var(--line)";
+    toast.classList.add("show");
+
+    setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+function definirModoAutenticacao(modo) {
+    const cadastro = modo === "register";
+
+    document.querySelectorAll("[data-auth-tab]").forEach((aba) => {
+        aba.classList.toggle("active", aba.dataset.authTab === modo);
+    });
+
+    registerFields.forEach((campo) => {
+        campo.style.display = cadastro ? "grid" : "none";
+    });
+
+    if (title) {
+        title.textContent = cadastro ? "Crie sua conta" : "Acesse sua conta";
+    }
+}
+
+function abrirAutenticacao(modo = "login") {
+    if (!modal) return;
+
+    definirModoAutenticacao(modo);
+    modal.classList.add("open");
+}
+
+function fecharAutenticacao() {
+    modal?.classList.remove("open");
+}
+
+function getUsuarioLogado() {
+    const bruto = localStorage.getItem("taxatio_usuario");
+    return bruto ? JSON.parse(bruto) : null;
+}
+
+function sair() {
+    localStorage.removeItem("taxatio_usuario");
+    atualizarStatusAuth();
+    mostrarMensagem("Você saiu da sua conta.");
+}
+
+function atualizarStatusAuth() {
+    const usuario = getUsuarioLogado();
+
+    const botaoEntrar = document.querySelector('[data-open-auth][data-auth-mode="login"]');
+    const statusLogado = document.querySelector("[data-auth-status]");
+    const botaoSair = document.querySelector("[data-logout]");
+
+    if (usuario) {
+        if (botaoEntrar) botaoEntrar.style.display = "none";
+        if (statusLogado) {
+            statusLogado.style.display = "inline-flex";
+            statusLogado.textContent = `Olá, ${usuario.nome.split(" ")[0]}`;
+        }
+        if (botaoSair) botaoSair.style.display = "inline-flex";
+    } else {
+        if (botaoEntrar) botaoEntrar.style.display = "";
+        if (statusLogado) statusLogado.style.display = "none";
+        if (botaoSair) botaoSair.style.display = "none";
+    }
+}
+
+window.Taxatio = {
+    API_URL,
+    apiFetch,
+    mostrarMensagem,
+    abrirAutenticacao,
+    fecharAutenticacao,
+    getUsuarioLogado,
+    atualizarStatusAuth,
+    sair,
+};
+
+document.addEventListener("click", (evento) => {
+    const botao = evento.target.closest("[data-open-auth]");
+    if (!botao) return;
+
+    if (botao.dataset.authMode === "review") {
+        return;
+    }
+
+    abrirAutenticacao(botao.dataset.authMode || "login");
+});
+
+document.querySelectorAll("[data-close-modal]").forEach((botao) => {
+    botao.addEventListener("click", fecharAutenticacao);
+});
+
+document.querySelectorAll("[data-auth-tab]").forEach((aba) => {
+    aba.addEventListener("click", () => definirModoAutenticacao(aba.dataset.authTab));
+});
+
+modal?.addEventListener("click", (evento) => {
+    if (evento.target === modal) fecharAutenticacao();
+});
+
+document.addEventListener("keydown", (evento) => {
+    if (evento.key === "Escape") fecharAutenticacao();
+});
+
+document.querySelector("[data-logout]")?.addEventListener("click", sair);
+
+document.querySelector("[data-auth-form]")?.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+
+    const formulario = new FormData(evento.target);
+    const cadastro = document.querySelector("[data-auth-tab].active")?.dataset.authTab === "register";
+    const dados = cadastro
+        ? {
+            nome: formulario.get("nome"),
+            email: formulario.get("email"),
+            senha: formulario.get("senha"),
+            cpf: formulario.get("cpf"),
+        }
+        : {
+            email: formulario.get("email"),
+            senha: formulario.get("senha"),
+        };
+
+    try {
+        const usuario = await apiFetch(cadastro ? "/usuarios" : "/usuarios/login", {
+            method: "POST",
+            body: JSON.stringify(dados),
+        });
+
+        localStorage.setItem("taxatio_usuario", JSON.stringify(usuario));
+        evento.target.reset();
+        fecharAutenticacao();
+        mostrarMensagem(cadastro ? "Cadastro realizado com sucesso." : `Olá, ${usuario.nome}!`);
+        atualizarStatusAuth();
+        document.dispatchEvent(new CustomEvent("taxatio:login", { detail: usuario }));
+    } catch (erro) {
+        mostrarMensagem(erro.message, true);
+    }
+});
+
+document.querySelectorAll("[data-search-form]").forEach((formulario) => {
+    formulario.addEventListener("submit", (evento) => {
+        evento.preventDefault();
+
+        const busca = new FormData(formulario).get("q")?.trim() || "";
+        const query = busca ? `?q=${encodeURIComponent(busca)}` : "";
+
+        window.location.href = `avaliacoes.html${query}`;
+    });
+});
+
+atualizarStatusAuth();

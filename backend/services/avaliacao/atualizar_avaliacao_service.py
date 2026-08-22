@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from models import Avaliacao
 
 class AtualizarAvaliacaoService:
@@ -7,11 +9,15 @@ class AtualizarAvaliacaoService:
         if avaliacao is None:
             raise ValueError("Avaliação não encontrada")
 
+        data = None
+        if dados.get("data") is not None:
+            data = datetime.strptime(dados["data"], "%d-%m-%Y").date()
+
         avaliacao.atualizar(
             titulo=dados.get("titulo"),
             descricao=dados.get("descricao"),
             nota=dados.get("nota"),
-            data=dados.get("data"),
+            data=data,
         )
 
         return avaliacao.to_dict()

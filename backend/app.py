@@ -10,6 +10,7 @@ from controllers import (
     avaliacao_controller_bp,
     produto_controller_bp,
     categoria_controller_bp,
+    tutoria_controller_bp,
 )
 
 def create_app():
@@ -27,6 +28,7 @@ def create_app():
     app.register_blueprint(avaliacao_controller_bp)
     app.register_blueprint(produto_controller_bp)
     app.register_blueprint(categoria_controller_bp)
+    app.register_blueprint(tutoria_controller_bp)
 
     @app.get("/")
     def home():
@@ -41,6 +43,7 @@ def create_app():
                 "categorias": "GET/POST /categorias, GET/DELETE /categorias/<id>",
                 "adicionar_produto_categoria": "POST /categorias/<id>/produtos",
                 "remover_produto_categoria": "DELETE /categorias/<id>/produtos",
+                "tutoria": "POST /api/tutoria",
             }
         })
 

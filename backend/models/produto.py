@@ -9,8 +9,8 @@ class Produto(ModeloBase):
 
     categoria_id = db.Column(db.Integer, db.ForeignKey("categorias.id"), nullable=False)
 
-    categoria = db.relationship("Categoria", back_populates="produtos")
-    avaliacoes = db.relationship("Avaliacao", back_populates="produto")
+    categoria = db.relationship("Categoria",  back_populates="produtos")
+    avaliacoes = db.relationship("Avaliacao", back_populates="produto", cascade="all, delete-orphan")
 
     def atualizar(self, nome=None, descricao=None):
         if nome is not None:
