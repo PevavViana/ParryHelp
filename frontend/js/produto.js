@@ -128,12 +128,12 @@ function abrirFormularioAvaliacao(usuario) {
     form.className = "review-form";
     form.setAttribute("data-review-form", "");
     form.innerHTML = `
-        <input type="text" name="titulo" placeholder="Título" required>
-        <textarea name="descricao" placeholder="Comentário" required></textarea>
-        <input type="number" name="nota" placeholder="Nota (0 a 10)" min="0" max="10" step="0.1" required>
-        <input type="date" name="data" required>
-        <button type="submit" class="btn btn-primary">Enviar avaliação</button>
-    `;
+    <input type="text" name="titulo" placeholder="Título" required maxlength="100">
+    <textarea name="descricao" placeholder="Comentário" required maxlength="500"></textarea>
+    <input type="number" name="nota" placeholder="Nota (0 a 10)" min="0" max="10" step="0.1" required>
+    <input type="date" name="data" required>
+    <button type="submit" class="btn btn-primary">Enviar avaliação</button>
+`;
 
     document.querySelector(".product-hero").after(form);
 
@@ -171,12 +171,12 @@ function abrirFormularioEdicao(avaliacao) {
     form.className = "review-form";
     form.setAttribute("data-review-form", "");
     form.innerHTML = `
-        <input type="text" name="titulo" value="${avaliacao.titulo}" required>
-        <textarea name="descricao" required>${avaliacao.descricao}</textarea>
-        <input type="number" name="nota" value="${avaliacao.nota}" min="0" max="10" step="0.1" required>
-        <input type="date" name="data" value="${avaliacao.data}" required>
-        <button type="submit" class="btn btn-primary">Salvar alterações</button>
-    `;
+    <input type="text" name="titulo" value="${avaliacao.titulo}" required maxlength="100">
+    <textarea name="descricao" required maxlength="500">${avaliacao.descricao}</textarea>
+    <input type="number" name="nota" value="${avaliacao.nota}" min="0" max="10" step="0.1" required>
+    <input type="date" name="data" value="${avaliacao.data}" required>
+    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+`;
 
     artigo.after(form);
 

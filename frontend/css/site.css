@@ -477,6 +477,7 @@ h1, h2, h3 {
     font-size: 12px;
     line-height: 1.5;
     font-style: italic;
+    overflow-wrap: break-word; 
 }
 
 .score {
@@ -617,6 +618,7 @@ h1, h2, h3 {
     margin: 0;
     color: var(--text);
     text-align: right;
+    overflow-wrap: break-word;
 }
 
 .review-section {
@@ -648,6 +650,8 @@ h1, h2, h3 {
     color: #c3cae1;
     line-height: 1.55;
     font-size: 13px;
+    overflow-wrap: break-word;   
+    word-break: break-word;     
 }
 
 .modal-backdrop {
