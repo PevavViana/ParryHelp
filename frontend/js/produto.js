@@ -130,7 +130,7 @@ function abrirFormularioAvaliacao(usuario) {
     form.setAttribute("data-review-form", "");
     form.innerHTML = `
     <input type="text" name="titulo" placeholder="Título" required maxlength="100">
-    <textarea name="descricao" placeholder="Comentário" required maxlength="500"></textarea>
+    <textarea name="descricao" placeholder="Comentário" required maxlength="300"></textarea>
     <input type="number" name="nota" placeholder="Nota (0 a 10)" min="0" max="10" step="0.1" required>
     <input type="date" name="data" value="${hoje}" required>   <!-- ← value novo -->
     <button type="submit" class="btn btn-primary">Enviar avaliação</button>
@@ -173,7 +173,7 @@ function abrirFormularioEdicao(avaliacao) {
     form.setAttribute("data-review-form", "");
     form.innerHTML = `
     <input type="text" name="titulo" value="${avaliacao.titulo}" required maxlength="100">
-    <textarea name="descricao" required maxlength="500">${avaliacao.descricao}</textarea>
+    <textarea name="descricao" required maxlength="300">${avaliacao.descricao}</textarea>
     <input type="number" name="nota" value="${avaliacao.nota}" min="0" max="10" step="0.1" required>
     <input type="date" name="data" value="${avaliacao.data}" required>
     <button type="submit" class="btn btn-primary">Salvar alterações</button>

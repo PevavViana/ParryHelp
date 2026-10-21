@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS produtos (
 CREATE TABLE IF NOT EXISTS avaliacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
-    descricao VARCHAR(120) NOT NULL,
+    descricao VARCHAR(300) NOT NULL,
     nota FLOAT NOT NULL,
     data DATE NOT NULL,
     usuario_id INT NOT NULL,
