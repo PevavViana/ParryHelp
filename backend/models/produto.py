@@ -18,6 +18,8 @@ class Produto(ModeloBase):
             self.nome = nome
         if descricao is not None:
             self.descricao = descricao
+        if imagem_url is not None:
+            self.imagem_url = imagem_url
         db.session.commit()
 
     def calcular_media(self):
