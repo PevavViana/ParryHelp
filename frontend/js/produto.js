@@ -53,9 +53,9 @@ function renderizarProduto(produto, categoria, avaliacoes, nomesPorUsuario) {
                     <h2>Últimas avaliações</h2>
                     <div>
                         ${avaliacoes.length ? avaliacoes.map((avaliacao) => {
-                            const ehDoUsuario = usuario && Number(avaliacao.usuario_id) === Number(usuario.id);
-                            const nomeAutor = nomesPorUsuario[avaliacao.usuario_id] || "Usuário";
-                            return `
+        const ehDoUsuario = usuario && Number(avaliacao.usuario_id) === Number(usuario.id);
+        const nomeAutor = nomesPorUsuario[avaliacao.usuario_id] || "Usuário";
+        return `
                                 <article class="review-item" data-avaliacao-id="${avaliacao.id}">
                                     <div class="review-head">
                                         <strong>${nomeAutor}</strong>
@@ -70,7 +70,7 @@ function renderizarProduto(produto, categoria, avaliacoes, nomesPorUsuario) {
                                     ` : ""}
                                 </article>
                             `;
-                        }).join("") : '<div class="empty">Este produto ainda não possui avaliações.</div>'}
+    }).join("") : '<div class="empty">Este produto ainda não possui avaliações.</div>'}
                     </div>
                 </section>
             </section>
@@ -262,6 +262,17 @@ async function carregarProduto() {
 
         const categoria = categorias.find((item) => item.id === produto.categoria_id) || { nome: "Sem categoria" };
         const avaliacoesDoProduto = avaliacoes.filter((item) => item.produto_id === Number(produtoId));
+
+
+        // Coloca as avaliações do próprio usuário primeiro
+        const usuario = Taxatio.getUsuarioLogado();
+        const meuId = usuario ? Number(usuario.id) : -1;
+
+        avaliacoesDoProduto.sort((a, b) => {
+            const aMinha = Number(a.usuario_id) === meuId ? 0 : 1;
+            const bMinha = Number(b.usuario_id) === meuId ? 0 : 1;
+            return aMinha - bMinha;
+        });
 
         const nomesPorUsuario = Object.fromEntries(
             usuarios.map((usuario) => [usuario.id, usuario.nome])
