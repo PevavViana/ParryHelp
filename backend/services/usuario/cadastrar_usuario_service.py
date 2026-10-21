@@ -7,6 +7,10 @@ class CadastrarUsuarioService:
         senha = dados.get("senha")
         cpf = dados.get("cpf")
 
+
+        if not nome or len(nome) > 40:
+            raise ValueError("Nome é obrigatório e deve ter no máximo 150 caracteres")
+
         if Usuario.buscar_por_email(email) is not None:
             raise ValueError("E-mail já cadastrado")
 
