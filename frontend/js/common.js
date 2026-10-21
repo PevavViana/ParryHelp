@@ -78,9 +78,14 @@ function atualizarStatusAuth() {
     const botaoEntrar = document.querySelector('[data-open-auth][data-auth-mode="login"]');
     const statusLogado = document.querySelector("[data-auth-status]");
     const botaoSair = document.querySelector("[data-logout]");
+    
+     const botaoCadastro = document.querySelector("[data-cadastro]");   // ← novo
+
+   
 
     if (usuario) {
         if (botaoEntrar) botaoEntrar.style.display = "none";
+         if (botaoCadastro) botaoCadastro.style.display = "none";  
         if (statusLogado) {
             statusLogado.style.display = "inline-flex";
             statusLogado.textContent = `Olá, ${usuario.nome.split(" ")[0]}`;
