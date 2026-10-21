@@ -158,6 +158,10 @@ button {
     border-radius: 9px;
     background: #0d1531;
     color: var(--muted);
+    
+    display: none;              /* ← esconde no desktop */
+    align-items: center;        /* ← só pra centralizar o ☰ quando aparecer */
+    justify-content: center;
 }
 
 .icon-btn:hover {
@@ -816,6 +820,10 @@ h1, h2, h3 {
         display: none;
     }
 
+    .icon-btn {
+        display: inline-flex;   /* ← aparece no telefone */
+    }
+
     .hero h1 {
         font-size: 44px;
     }
@@ -904,4 +912,6 @@ h1, h2, h3 {
 .review-form button {
     justify-self: start;
 }
+
+
 
