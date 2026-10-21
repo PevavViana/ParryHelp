@@ -13,6 +13,7 @@ class CriarProdutoService:
             nome=dados.get("nome"),
             descricao=dados.get("descricao"),
             categoria_id=categoria_id,
+            imagem_url=dados.get("imagem_url"),
         )
         
         produto.salvar()

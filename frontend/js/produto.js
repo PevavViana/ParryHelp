@@ -25,7 +25,11 @@ function renderizarProduto(produto, categoria, avaliacoes, nomesPorUsuario) {
         <div class="detail-grid">
             <section>
                 <div class="product-hero">
-                    <div class="product-visual">□</div>
+                    <div class="product-visual">
+                    ${produto.imagem_url
+            ? `<img src="${produto.imagem_url}" alt="${produto.nome}">`
+            : `<img src="css/icone.svg" alt="" class="fallback-icon">`}
+            </div>
                     <div class="product-info">
                         <p class="eyebrow">${categoria.nome}</p>
                         <h1>${produto.nome}</h1>
@@ -53,9 +57,9 @@ function renderizarProduto(produto, categoria, avaliacoes, nomesPorUsuario) {
                     <h2>Últimas avaliações</h2>
                     <div>
                         ${avaliacoes.length ? avaliacoes.map((avaliacao) => {
-        const ehDoUsuario = usuario && Number(avaliacao.usuario_id) === Number(usuario.id);
-        const nomeAutor = nomesPorUsuario[avaliacao.usuario_id] || "Usuário";
-        return `
+                const ehDoUsuario = usuario && Number(avaliacao.usuario_id) === Number(usuario.id);
+                const nomeAutor = nomesPorUsuario[avaliacao.usuario_id] || "Usuário";
+                return `
                                 <article class="review-item" data-avaliacao-id="${avaliacao.id}">
                                     <div class="review-head">
                                         <strong>${nomeAutor}</strong>
@@ -70,7 +74,7 @@ function renderizarProduto(produto, categoria, avaliacoes, nomesPorUsuario) {
                                     ` : ""}
                                 </article>
                             `;
-    }).join("") : '<div class="empty">Este produto ainda não possui avaliações.</div>'}
+            }).join("") : '<div class="empty">Este produto ainda não possui avaliações.</div>'}
                     </div>
                 </section>
             </section>
@@ -292,6 +296,6 @@ document.addEventListener("input", (evento) => {
 
     const valor = Number(campo.value);
     if (valor > 10) campo.value = 10;
-    if (valor < 0)  campo.value = 0;
+    if (valor < 0) campo.value = 0;
 });
 carregarProduto();

@@ -119,7 +119,11 @@ function renderizarProdutos() {
 
         return `
             <article class="product-card">
-                <div class="product-icon">□</div>
+                <div class="product-icon">
+                ${produto.imagem_url
+                ? `<img src="${produto.imagem_url}" alt="${produto.nome}">`
+                : `<img src="css/icone.svg" alt="" class="fallback-icon">`}
+</div>
                 <div>
                     <h2>${produto.nome}</h2>
                     <div class="product-meta">${nomeCategoria(produto.categoria_id)}</div>

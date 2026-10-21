@@ -13,11 +13,34 @@ from datetime import date, datetime, time, timedelta
 from app import app
 from models import db, Usuario, Categoria, Produto, Avaliacao
 
-random.seed(42)  # remove se quiser dados diferentes a cada execução
+random.seed(42)
 
 
 def dias_atras(n):
     return date.today() - timedelta(days=n)
+
+
+# ---------- IMAGENS PÚBLICAS ----------
+IMAGENS_ESPECIFICAS = {
+    "iPhone 15 Pro": "https://upload.wikimedia.org/wikipedia/commons/8/84/IPhone_15_pro.jpg",
+    "Samsung Galaxy S24": "https://upload.wikimedia.org/wikipedia/commons/0/05/Samsung_Galaxy_S24%2C_Sperrbildschirm.JPG",
+}
+
+TERMOS_POR_CATEGORIA = {
+    "Smartphones": "smartphone",
+    "Notebooks": "laptop",
+    "Fones de Ouvido": "headphones",
+    "Smartwatches": "smartwatch",
+    "Tablets": "tablet",
+    "Consoles": "game-console",
+}
+
+
+def imagem_para(nome, categoria):
+    if nome in IMAGENS_ESPECIFICAS:
+        return IMAGENS_ESPECIFICAS[nome]
+    termo = TERMOS_POR_CATEGORIA.get(categoria, "technology")
+    return f""
 
 
 # ---------- USUÁRIOS ----------
@@ -72,7 +95,7 @@ PRODUTOS = [
     ("Consoles", "Steam Deck OLED",            "PC portátil com tela HDR e SteamOS",                8.8,  7),
 ]
 
-# Templates por categoria e sentimento (nota define qual pool usar)
+# Templates por categoria e sentimento
 TEMPLATES = {
     "Smartphones": {
         "positivo": [
@@ -231,7 +254,12 @@ def popular(reset=False):
         # Produtos
         produtos = []
         for cat_nome, nome, desc, base, qtd in PRODUTOS:
-            p = Produto(nome=nome, descricao=desc, categoria_id=categorias[cat_nome].id)
+            p = Produto(
+                nome=nome,
+                descricao=desc,
+                categoria_id=categorias[cat_nome].id,
+                imagem_url=imagem_para(nome, cat_nome),
+            )
             db.session.add(p)
             produtos.append((p, cat_nome, base, qtd))
         db.session.commit()

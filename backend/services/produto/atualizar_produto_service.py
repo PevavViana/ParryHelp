@@ -10,5 +10,6 @@ class AtualizarProdutoService:
         produto.atualizar(
             nome=dados.get("nome"),
             descricao=dados.get("descricao"),
+            imagem_url=dados.get("imagem_url"),
         )
         return produto.to_dict()

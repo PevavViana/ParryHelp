@@ -6,13 +6,14 @@ class Produto(ModeloBase):
 
     nome = db.Column(db.String(100), nullable=False)
     descricao = db.Column(db.String(120), nullable=False)
+    imagem_url = db.Column(db.String(500), nullable=True)  
 
     categoria_id = db.Column(db.Integer, db.ForeignKey("categorias.id"), nullable=False)
 
     categoria = db.relationship("Categoria",  back_populates="produtos")
     avaliacoes = db.relationship("Avaliacao", back_populates="produto", cascade="all, delete-orphan")
 
-    def atualizar(self, nome=None, descricao=None):
+    def atualizar(self, nome=None, descricao=None, imagem_url=None):
         if nome is not None:
             self.nome = nome
         if descricao is not None:
@@ -31,4 +32,5 @@ class Produto(ModeloBase):
             "descricao": self.descricao,
             "categoria_id": self.categoria_id,
             "media_notas": self.calcular_media(),
+            "imagem_url": self.imagem_url,  
         }
