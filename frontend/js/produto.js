@@ -116,13 +116,14 @@ async function gerarResumoAvaliacoes() {
         botao.textContent = "Gerar resumo";
     }
 }
-
 function abrirFormularioAvaliacao(usuario) {
     const existente = document.querySelector("[data-review-form]");
     if (existente) {
         existente.remove();
         return;
     }
+
+    const hoje = new Date().toLocaleDateString("en-CA");   // ← novo
 
     const form = document.createElement("form");
     form.className = "review-form";
@@ -131,7 +132,7 @@ function abrirFormularioAvaliacao(usuario) {
     <input type="text" name="titulo" placeholder="Título" required maxlength="100">
     <textarea name="descricao" placeholder="Comentário" required maxlength="500"></textarea>
     <input type="number" name="nota" placeholder="Nota (0 a 10)" min="0" max="10" step="0.1" required>
-    <input type="date" name="data" required>
+    <input type="date" name="data" value="${hoje}" required>   <!-- ← value novo -->
     <button type="submit" class="btn btn-primary">Enviar avaliação</button>
 `;
 
@@ -284,5 +285,13 @@ async function carregarProduto() {
         Taxatio.mostrarMensagem(erro.message, true);
     }
 }
+//proibir numeros maiores
+document.addEventListener("input", (evento) => {
+    const campo = evento.target;
+    if (campo.name !== "nota") return;
 
+    const valor = Number(campo.value);
+    if (valor > 10) campo.value = 10;
+    if (valor < 0)  campo.value = 0;
+});
 carregarProduto();
