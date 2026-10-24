@@ -1,72 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produto | Taxatio</title>
-  <link rel="stylesheet" href="css/site.css">
-</head>
-<body>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="logo" href="index.html">
-        <span class="logo-mark">✓</span>
-        <span>Taxat<span class="logo-accent">io</span></span>
-      </a>
-
-      <form class="search-bar" data-search-form>
-        <input name="q" type="search" placeholder="Buscar por produto ou categoria..." aria-label="Buscar">
-        <button class="btn btn-primary" type="submit">Buscar</button>
-      </form>
-
-      <nav class="header-actions">
-        <button class="btn btn-outline" data-open-auth data-auth-mode="login">Entrar</button>
-        <span class="btn btn-header" data-auth-status style="display:none"></span>
-        <button class="btn btn-outline" data-logout style="display:none">Sair</button>
-        <a class="btn btn-header" href="avaliacoes.html">Avaliações</a>
-        <button class="icon-btn" type="button" data-open-auth aria-label="Abrir acesso">☰</button>
-      </nav>
-    </div>
-  </header>
-
-  <main class="page-shell" data-product-shell></main>
-
-  <div class="modal-backdrop" data-auth-modal>
-    <section class="modal" role="dialog" aria-modal="true">
-      <button class="modal-close" type="button" data-close-modal aria-label="Fechar">×</button>
-      <h2>Acesse sua conta</h2>
-      <p>Entre para acompanhar suas avaliações ou crie um cadastro.</p>
-
-      <div class="modal-tabs">
-        <button type="button" class="active" data-auth-tab="login">Entrar</button>
-        <button type="button" data-auth-tab="register">Cadastrar</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Detalhes, nota geral e avaliações da comunidade sobre um produto de tecnologia."
+    />
+    <title>Produto — Taxatio</title>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="stylesheet" href="css/site.css?v=terms-modal-1" />
+  </head>
+  <body data-page="product">
+    <div data-site-header></div>
+    <main class="wrap page-main" data-product-shell>
+      <div class="skeleton-detail"></div>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main wrap">
+        <div class="footer-brand-column">
+          <a class="brand" href="index.html" aria-label="Taxatio, página inicial">
+            <img src="assets/logo.png" alt="" />
+            <span>taxatio</span>
+          </a>
+          <p>Experiências reais para escolhas de tecnologia mais conscientes.</p>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Explorar</h2>
+          <a href="catalogo.html">Todos os produtos</a>
+          <a href="catalogo.html">Em destaque</a>
+          <a href="catalogo.html">Pesquisar produtos</a>
+          <a href="gerenciar.html">Gerenciar catálogo</a>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Comparar</h2>
+          <a href="comparar.html">Montar comparação</a>
+          <a href="catalogo.html">Pesquisar produtos</a>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Conta</h2>
+          <a href="conta.html">Minha conta</a>
+          <button type="button" data-open-auth data-auth-mode="login">Entrar</button>
+          <button type="button" data-open-auth data-auth-mode="register">Criar conta</button>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Legal</h2>
+          <p>As notas refletem as experiências compartilhadas pela comunidade.</p>
+        </div>
       </div>
-
-      <form class="modal-form" data-auth-form>
-        <label data-register-field>
-          Nome
-          <input name="nome" type="text">
-        </label>
-        <label data-register-field>
-          CPF
-          <input name="cpf" type="text" maxlength="14" inputmode="numeric">
-        </label>
-        <label>
-          E-mail
-          <input name="email" type="email" required>
-        </label>
-        <label>
-          Senha
-          <input name="senha" type="password" required>
-        </label>
-        <button class="btn btn-primary" type="submit">Continuar</button>
-      </form>
-    </section>
-  </div>
-
-  <div class="toast" data-toast></div>
-
-  <script src="js/common.js"></script>
-  <script src="js/produto.js"></script>
-</body>
+      <div class="footer-bottom wrap">
+        <span>© <span data-year></span> Taxatio</span>
+      </div>
+    </footer>
+    <div data-global-ui></div>
+    <script type="module" src="js/common.js?v=terms-modal-1"></script>
+    <script type="module" src="js/produto.js?v=review-date-2"></script>
+  </body>
 </html>

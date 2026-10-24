@@ -6,6 +6,11 @@ from .gemini_service import GeminiService
 
 class ResumoAvaliacoesProdutoService:
     def executar(self, produto_id, limite=10):
+        if isinstance(produto_id, bool) or not isinstance(produto_id, int) or produto_id < 1:
+            raise ValueError("Produto inválido.")
+        if isinstance(limite, bool) or not isinstance(limite, int) or limite < 1 or limite > 20:
+            raise ValueError("O limite deve ser um número entre 1 e 20.")
+
         produto = Produto.buscar_por_id(produto_id)
         if produto is None:
             raise ValueError("Produto não encontrado.")

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Gerencie os produtos e categorias do catálogo Taxatio." />
+    <title>Gerenciar catálogo — Taxatio</title>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="stylesheet" href="css/site.css?v=terms-modal-1" />
+  </head>
+  <body data-page="manage">
+    <div data-site-header></div>
+    <main class="wrap page-main manage-main">
+      <header class="page-intro">
+        <p class="eyebrow">Gerenciar catálogo</p>
+        <h1>Produtos e categorias.</h1>
+        <p>Cadastre e mantenha os itens disponíveis para a comunidade.</p>
+      </header>
+
+      <section class="manage-section" aria-labelledby="products-title">
+        <div class="manage-section-heading">
+          <div>
+            <h2 id="products-title">Produtos</h2>
+            <p>Crie, edite ou remova produtos do catálogo.</p>
+          </div>
+          <span class="manage-count" data-products-count>—</span>
+        </div>
+        <div class="manage-grid">
+          <form class="manage-panel manage-form" data-product-form>
+            <h3 data-product-form-title>Novo produto</h3>
+            <input type="hidden" name="id" />
+            <div class="field-wrap">
+              <label for="manage-product-name">Nome</label>
+              <input id="manage-product-name" name="nome" maxlength="100" required />
+            </div>
+            <div class="field-wrap">
+              <label for="manage-product-description">Descrição</label>
+              <textarea id="manage-product-description" name="descricao" maxlength="120" required></textarea>
+            </div>
+            <div class="field-wrap">
+              <label for="manage-product-category">Categoria</label>
+              <select id="manage-product-category" name="categoria_id" required></select>
+            </div>
+            <div class="field-wrap">
+              <label for="manage-product-image">URL da imagem (opcional)</label>
+              <input id="manage-product-image" name="imagem_url" type="url" maxlength="500" />
+            </div>
+            <p class="form-error" data-product-error role="alert"></p>
+            <div class="manage-actions">
+              <button class="button button-primary" type="submit" data-product-submit>Adicionar produto</button>
+              <button class="button button-quiet" type="button" data-product-cancel hidden>Cancelar</button>
+            </div>
+          </form>
+          <div class="manage-panel manage-list-panel">
+            <h3>Catálogo</h3>
+            <div class="manage-list" data-products-list aria-live="polite">
+              <p class="manage-empty">Carregando produtos…</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="manage-section" aria-labelledby="categories-title">
+        <div class="manage-section-heading">
+          <div>
+            <h2 id="categories-title">Categorias</h2>
+            <p>Organize os produtos em categorias.</p>
+          </div>
+          <span class="manage-count" data-categories-count>—</span>
+        </div>
+        <div class="manage-grid">
+          <form class="manage-panel manage-form" data-category-form>
+            <h3 data-category-form-title>Nova categoria</h3>
+            <input type="hidden" name="id" />
+            <div class="field-wrap">
+              <label for="manage-category-name">Nome</label>
+              <input id="manage-category-name" name="nome" maxlength="100" required />
+            </div>
+            <p class="form-error" data-category-error role="alert"></p>
+            <div class="manage-actions">
+              <button class="button button-primary" type="submit" data-category-submit>Adicionar categoria</button>
+              <button class="button button-quiet" type="button" data-category-cancel hidden>Cancelar</button>
+            </div>
+          </form>
+          <div class="manage-panel manage-list-panel">
+            <h3>Categorias do catálogo</h3>
+            <div class="manage-list" data-categories-list aria-live="polite">
+              <p class="manage-empty">Carregando categorias…</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main wrap">
+        <div class="footer-brand-column">
+          <a class="brand" href="index.html" aria-label="Taxatio, página inicial">
+            <img src="assets/logo.png" alt="" />
+            <span>taxatio</span>
+          </a>
+          <p>Experiências reais para escolhas de tecnologia mais conscientes.</p>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Explorar</h2>
+          <a href="catalogo.html">Todos os produtos</a>
+          <a href="catalogo.html">Em destaque</a>
+          <a href="catalogo.html">Pesquisar produtos</a>
+          <a href="gerenciar.html">Gerenciar catálogo</a>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Comparar</h2>
+          <a href="comparar.html">Montar comparação</a>
+          <a href="catalogo.html">Pesquisar produtos</a>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Conta</h2>
+          <a href="conta.html">Minha conta</a>
+          <button type="button" data-open-auth data-auth-mode="login">Entrar</button>
+          <button type="button" data-open-auth data-auth-mode="register">Criar conta</button>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Legal</h2>
+          <p>As notas refletem as experiências compartilhadas pela comunidade.</p>
+        </div>
+      </div>
+      <div class="footer-bottom wrap">
+        <span>© <span data-year></span> Taxatio</span>
+      </div>
+    </footer>
+    <div data-global-ui></div>
+    <script type="module" src="js/common.js?v=terms-modal-1"></script>
+    <script type="module" src="js/gerenciar.js"></script>
+  </body>
+</html>

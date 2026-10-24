@@ -1,301 +1,323 @@
-const shellProduto = document.querySelector("[data-product-shell]");
-const produtoId = new URLSearchParams(location.search).get("id");
-
-let avaliacoesAtuais = [];
-
-function calcularMedia(avaliacoes) {
-    if (avaliacoes.length === 0) return 0;
-
-    const total = avaliacoes.reduce((soma, avaliacao) => soma + Number(avaliacao.nota), 0);
-    return total / avaliacoes.length;
-}
-
-function dataParaApi(dataInputValue) {
-    const [ano, mes, dia] = dataInputValue.split("-");
-    return `${dia}-${mes}-${ano}`;
-}
-
-function renderizarProduto(produto, categoria, avaliacoes, nomesPorUsuario) {
-    const media = calcularMedia(avaliacoes);
-    const usuario = Taxatio.getUsuarioLogado();
-
-    avaliacoesAtuais = avaliacoes;
-
-    shellProduto.innerHTML = `
-        <div class="detail-grid">
-            <section>
-                <div class="product-hero">
-                    <div class="product-visual">
-                    ${produto.imagem_url
-            ? `<img src="${produto.imagem_url}" alt="${produto.nome}">`
-            : `<img src="css/icone.svg" alt="" class="fallback-icon">`}
-            </div>
-                    <div class="product-info">
-                        <p class="eyebrow">${categoria.nome}</p>
-                        <h1>${produto.nome}</h1>
-                        <div class="rating">★★★★★ <span>${media.toFixed(1)}/10 · ${avaliacoes.length} avaliações</span></div>
-                        <p class="price-label">Produto avaliado pela comunidade</p>
-                        <p class="muted">${produto.descricao}</p>
-                        <div class="tags">
-                            <span class="tag tag-blue">${categoria.nome}</span>
-                            <span class="tag tag-blue">${avaliacoes.length} avaliações</span>
-                        </div>
-                        <button class="btn btn-primary" data-open-auth data-auth-mode="review">Avaliar este produto</button>
-                    </div>
-                </div>
-
-                <section class="ai-panel" data-ai-review-panel>
-                    <div>
-                        <p class="eyebrow">Assistente de avaliações</p>
-                        <h2>O que dizem os compradores?</h2>
-                        <p data-ai-review>Gere um resumo das avaliações mais relevantes deste produto.</p>
-                    </div>
-                    <button class="btn btn-primary" type="button" data-ai-review-button>Gerar resumo</button>
-                </section>
-
-                <section class="review-section">
-                    <h2>Últimas avaliações</h2>
-                    <div>
-                        ${avaliacoes.length ? avaliacoes.map((avaliacao) => {
-                const ehDoUsuario = usuario && Number(avaliacao.usuario_id) === Number(usuario.id);
-                const nomeAutor = nomesPorUsuario[avaliacao.usuario_id] || "Usuário";
-                return `
-                                <article class="review-item" data-avaliacao-id="${avaliacao.id}">
-                                    <div class="review-head">
-                                        <strong>${nomeAutor}</strong>
-                                        <span>Nota ${avaliacao.nota}/10 · ${avaliacao.data}</span>
-                                    </div>
-                                    <p>${avaliacao.titulo}: ${avaliacao.descricao}</p>
-                                    ${ehDoUsuario ? `
-                                        <div class="review-actions">
-                                            <button type="button" class="btn btn-outline" data-editar-avaliacao="${avaliacao.id}">Editar</button>
-                                            <button type="button" class="btn btn-outline" data-excluir-avaliacao="${avaliacao.id}">Excluir</button>
-                                        </div>
-                                    ` : ""}
-                                </article>
-                            `;
-            }).join("") : '<div class="empty">Este produto ainda não possui avaliações.</div>'}
-                    </div>
-                </section>
-            </section>
-
-            <aside>
-                <section class="detail-panel">
-                    <h2>Resumo</h2>
-                    <dl>
-                        <div><dt>Categoria</dt><dd>${categoria.nome}</dd></div>
-                        <div><dt>Nota geral</dt><dd>${media.toFixed(1)}/10</dd></div>
-                        <div><dt>Avaliações</dt><dd>${avaliacoes.length}</dd></div>
-                    </dl>
-                </section>
-            </aside>
+(() => {
+  const shell = document.querySelector("[data-product-shell]");
+  const id = Number(new URLSearchParams(location.search).get("id"));
+  let product;
+  let reviews = [];
+  let authors = {};
+  const escape = Taxatio.escapeHTML;
+  const dateToISO = (value) => {
+    const match = String(value || "").match(/^(\d{2})-(\d{2})-(\d{4})$/);
+    return match ? `${match[3]}-${match[2]}-${match[1]}` : "";
+  };
+  const dateToAPI = (value) => {
+    const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    return match ? `${match[3]}-${match[2]}-${match[1]}` : "";
+  };
+  const todayISO = () => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  };
+  const categoryFor = (categories) =>
+    categories.find((item) => Number(item.id) === Number(product.categoria_id))
+      ?.nome || "Sem categoria";
+  function render(category) {
+    const user = Taxatio.getUsuarioLogado();
+    const average = Number(product.media_notas || 0);
+    document.title = `${product.nome} — Taxatio`;
+    shell.innerHTML = `<p class="detail-topline">
+        <a href="catalogo.html">← Voltar ao catálogo</a>
+        </p>
+        <div class="detail-layout">
+        <section class="detail-hero">
+        <div class="detail-visual">${product.imagem_url && /^https?:\/\//i.test(product.imagem_url) ? `<img src="${escape(product.imagem_url)}" alt="${escape(product.nome)}" onerror="this.remove()">` : escape(product.nome.charAt(0))}</div>
+        <div class="detail-copy">
+        <p class="eyebrow">${escape(category)}</p>
+        <h1>${escape(product.nome)}</h1>
+        <div class="detail-rating">
+        <strong>${average.toFixed(1)}</strong>
+        <span>/ 10 · nota da comunidade</span>
         </div>
-    `;
-
-    document.querySelector("[data-ai-review-button]").addEventListener("click", gerarResumoAvaliacoes);
-}
-
-async function gerarResumoAvaliacoes() {
-    const botao = document.querySelector("[data-ai-review-button]");
-    const resumo = document.querySelector("[data-ai-review]");
-
-    botao.disabled = true;
-    botao.textContent = "Gerando...";
-
-    try {
-        const dados = await Taxatio.apiFetch("/api/tutoria", {
-            method: "POST",
-            body: JSON.stringify({
-                tipo: "avaliacoes_relevantes",
-                produto_id: Number(produtoId),
-                limite: 10,
-            }),
-        });
-        resumo.textContent = dados.resumo;
-    } catch (erro) {
-        resumo.textContent = erro.message;
-        Taxatio.mostrarMensagem(erro.message, true);
-    } finally {
-        botao.disabled = false;
-        botao.textContent = "Gerar resumo";
-    }
-}
-function abrirFormularioAvaliacao(usuario) {
-    const existente = document.querySelector("[data-review-form]");
-    if (existente) {
-        existente.remove();
-        return;
-    }
-
-    const hoje = new Date().toLocaleDateString("en-CA");   // ← novo
-
-    const form = document.createElement("form");
-    form.className = "review-form";
-    form.setAttribute("data-review-form", "");
-    form.innerHTML = `
-    <input type="text" name="titulo" placeholder="Título" required maxlength="100">
-    <textarea name="descricao" placeholder="Comentário" required maxlength="300"></textarea>
-    <input type="number" name="nota" placeholder="Nota (0 a 10)" min="0" max="10" step="0.1" required>
-    <input type="date" name="data" value="${hoje}" required>   <!-- ← value novo -->
-    <button type="submit" class="btn btn-primary">Enviar avaliação</button>
-`;
-
-    document.querySelector(".product-hero").after(form);
-
-    form.addEventListener("submit", async (evento) => {
-        evento.preventDefault();
-        const dados = new FormData(form);
-
-        try {
-            await Taxatio.apiFetch(`/usuarios/${usuario.id}/avaliacoes`, {
-                method: "POST",
-                body: JSON.stringify({
-                    produto_id: Number(produtoId),
-                    titulo: dados.get("titulo"),
-                    descricao: dados.get("descricao"),
-                    nota: Number(dados.get("nota")),
-                    data: dataParaApi(dados.get("data")),
-                }),
-            });
-            Taxatio.mostrarMensagem("Avaliação enviada!");
-            form.remove();
-            carregarProduto();
-        } catch (erro) {
-            Taxatio.mostrarMensagem(erro.message, true);
+        <p>${escape(product.descricao)}</p>
+        <div class="detail-actions">
+        <button class="button button-primary" type="button" data-review-action>${user ? "Escrever avaliação" : "Entre para avaliar"} <span aria-hidden="true">↗</span>
+        </button>
+        <button class="button button-quiet" type="button" data-compare-add>Adicionar à comparação</button>
+        </div>
+        </div>
+        </section>
+        <aside class="detail-aside">
+        <h2>Ficha rápida</h2>
+        <dl>
+        <div>
+        <dt>Categoria</dt>
+        <dd>${escape(category)}</dd>
+        </div>
+        <div>
+        <dt>Nota geral</dt>
+        <dd>${average.toFixed(1)} / 10</dd>
+        </div>
+        <div>
+        <dt>Avaliações</dt>
+        <dd>${reviews.length}</dd>
+        </div>
+        <div>
+        <dt>Identificador</dt>
+        <dd>#${Number(product.id)}</dd>
+        </div>
+        </dl>
+        </aside>
+        </div>
+        <section class="ai-panel">
+        <div>
+        <p class="eyebrow">Leitura assistida</p>
+        <h2>O que as avaliações contam?</h2>
+        <p data-ai-review>Um resumo dos pontos recorrentes nas avaliações deste produto.</p>
+        </div>
+        <button class="button" type="button" data-ai-review-button>Gerar resumo ↗</button>
+        </section>
+        <section class="reviews-section" id="avaliacoes">
+        <div class="reviews-header">
+        <h2>Experiências da comunidade <span class="review-count-badge" aria-label="${reviews.length} avaliações">${reviews.length}</span></h2>
+        </div>
+        <div data-review-form-area>
+        </div>
+        <div data-reviews>${renderReviews(user)}</div>
+        </section>
+        `;
+    shell
+      .querySelector("[data-ai-review-button]")
+      .addEventListener("click", generateSummary);
+    shell
+      .querySelector("[data-review-action]")
+      .addEventListener("click", () => {
+        if (!Taxatio.getUsuarioLogado()) {
+          Taxatio.openAuth("login");
+          return;
         }
+        reviewForm();
+      });
+    shell.querySelector("[data-compare-add]").addEventListener("click", () => {
+      let ids;
+      try {
+        ids = JSON.parse(sessionStorage.getItem("taxatio_compare") || "[]");
+      } catch {
+        ids = [];
+      }
+      if (!ids.includes(Number(product.id)) && ids.length >= 3) {
+        Taxatio.showToast("A comparação já tem três produtos.", true);
+        return;
+      }
+      sessionStorage.setItem(
+        "taxatio_compare",
+        JSON.stringify([...new Set([...ids, Number(product.id)])]),
+      );
+      location.href = "comparar.html";
     });
-}
-
-function abrirFormularioEdicao(avaliacao) {
-    const existente = document.querySelector("[data-review-form]");
-    if (existente) existente.remove();
-
-    const artigo = document.querySelector(`[data-avaliacao-id="${avaliacao.id}"]`);
-
-    const form = document.createElement("form");
-    form.className = "review-form";
-    form.setAttribute("data-review-form", "");
-    form.innerHTML = `
-    <input type="text" name="titulo" value="${avaliacao.titulo}" required maxlength="100">
-    <textarea name="descricao" required maxlength="300">${avaliacao.descricao}</textarea>
-    <input type="number" name="nota" value="${avaliacao.nota}" min="0" max="10" step="0.1" required>
-    <input type="date" name="data" value="${avaliacao.data}" required>
-    <button type="submit" class="btn btn-primary">Salvar alterações</button>
-`;
-
-    artigo.after(form);
-
-    form.addEventListener("submit", async (evento) => {
-        evento.preventDefault();
-        const dados = new FormData(form);
-
-        try {
-            await Taxatio.apiFetch(`/avaliacoes/${avaliacao.id}`, {
-                method: "PUT",
-                body: JSON.stringify({
-                    titulo: dados.get("titulo"),
-                    descricao: dados.get("descricao"),
-                    nota: Number(dados.get("nota")),
-                    data: dataParaApi(dados.get("data")),
-                }),
-            });
-            Taxatio.mostrarMensagem("Avaliação atualizada!");
-            form.remove();
-            carregarProduto();
-        } catch (erro) {
-            Taxatio.mostrarMensagem(erro.message, true);
+    shell
+      .querySelectorAll("[data-review-edit]")
+      .forEach((button) =>
+        button.addEventListener("click", () =>
+          reviewForm(
+            reviews.find(
+              (item) => Number(item.id) === Number(button.dataset.reviewEdit),
+            ),
+          ),
+        ),
+      );
+    shell
+      .querySelectorAll("[data-review-delete]")
+      .forEach((button) =>
+        button.addEventListener("click", () =>
+          deleteReview(Number(button.dataset.reviewDelete)),
+        ),
+      );
+  }
+  function renderReviews(user) {
+    const sorted = [...reviews].sort(
+      (a, b) =>
+        Number(b.usuario_id === user?.id) - Number(a.usuario_id === user?.id) ||
+        String(b.data).localeCompare(String(a.data)),
+    );
+    if (!sorted.length)
+      return `<div class="empty-state">
+        <span class="empty-mark">✳</span>
+        <h2>Primeira avaliação em aberto.</h2>
+        <p>Você pode ser a primeira pessoa a compartilhar uma experiência com este produto.</p>
+        </div>`;
+    return sorted
+      .map((review) => {
+        const own = user && Number(user.id) === Number(review.usuario_id);
+        const isoDate = dateToISO(review.data);
+        return `<article class="review-item">
+        <div class="review-head">
+        <strong>${escape(authors[review.usuario_id] || (own ? user.nome : "Membro da comunidade"))}</strong>
+        <span>Nota ${Number(review.nota).toFixed(1)} / 10 · ${escape(isoDate || review.data)}</span>
+        </div>
+        <h3>${escape(review.titulo)}</h3>
+        <p>${escape(review.descricao)}</p>${own ? `<div class="review-actions"><button class="quiet-button" data-review-edit="${Number(review.id)}">Editar</button><button class="quiet-button" data-review-delete="${Number(review.id)}">Excluir</button></div>` : ""}</article>`;
+      })
+      .join("");
+  }
+  function reviewForm(review = null) {
+    const area = shell.querySelector("[data-review-form-area]");
+    const reviewDateMessage = review
+      ? "A data original desta avaliação será mantida."
+      : `Sua avaliação será registrada com a data de hoje (${new Intl.DateTimeFormat("pt-BR").format(new Date())}).`;
+    area.innerHTML = `<form class="review-form" data-review-form novalidate>
+        <div class="field-wrap wide">
+        <label for="review-title">Título</label>
+        <input id="review-title" name="titulo" required maxlength="100" value="${escape(review?.titulo || "")}">
+        <span class="field-error" data-error="titulo">
+        </span>
+        </div>
+        <div class="field-wrap wide">
+        <label for="review-description">Sua experiência</label>
+        <textarea id="review-description" name="descricao" required maxlength="120">${escape(review?.descricao || "")}</textarea>
+        <span class="field-error" data-error="descricao">
+        </span>
+        </div>
+        <div class="field-wrap wide">
+        <label for="review-rating">Nota de 0 a 10</label>
+        <input id="review-rating" name="nota" type="number" inputmode="decimal" min="0" max="10" step="0.1" required value="${review ? Number(review.nota) : ""}">
+        <span class="field-error" data-error="nota">
+        </span>
+        </div>
+        <div class="review-date-note wide" role="note">
+        <span class="review-date-dot" aria-hidden="true"></span>
+        <span>${reviewDateMessage}</span>
+        </div>
+        <p class="form-error wide" data-review-error role="alert">
+        </p>
+        <button class="button button-primary" type="submit">${review ? "Salvar alterações" : "Publicar avaliação"} ↗</button>
+        <button class="quiet-button" type="button" data-review-cancel>Cancelar</button>
+        </form>`;
+    area
+      .querySelector("[data-review-cancel]")
+      .addEventListener("click", () => area.replaceChildren());
+    area.querySelector("form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(event.currentTarget));
+      const number = data.nota.trim() === "" ? Number.NaN : Number(data.nota);
+      const errors = {
+        titulo: !data.titulo.trim() ? "Informe um título." : "",
+        descricao: !data.descricao.trim()
+          ? "Conte um pouco sobre sua experiência."
+          : data.descricao.length > 120
+            ? "Use até 120 caracteres."
+            : "",
+        nota:
+          !Number.isFinite(number) || number < 0 || number > 10
+            ? "A nota deve estar entre 0 e 10."
+            : "",
+      };
+      Object.entries(errors).forEach(
+        ([key, message]) =>
+          (area.querySelector(`[data-error="${key}"]`).textContent = message),
+      );
+      if (Object.values(errors).some(Boolean)) return;
+      const submit = event.currentTarget.querySelector("[type=submit]");
+      submit.disabled = true;
+      try {
+        const payload = {
+          titulo: data.titulo.trim(),
+          descricao: data.descricao.trim(),
+          nota: number,
+        };
+        if (!review) {
+          payload.produto_id = Number(id);
+          payload.data = dateToAPI(todayISO());
         }
-    });
-}
-
-async function excluirAvaliacao(avaliacaoId) {
-    if (!confirm("Tem certeza que deseja excluir esta avaliação?")) return;
-
-    try {
-        await Taxatio.apiFetch(`/avaliacoes/${avaliacaoId}`, { method: "DELETE" });
-        Taxatio.mostrarMensagem("Avaliação excluída.");
-        carregarProduto();
-    } catch (erro) {
-        Taxatio.mostrarMensagem(erro.message, true);
-    }
-}
-
-document.addEventListener("click", (evento) => {
-    const botaoAvaliar = evento.target.closest('[data-auth-mode="review"]');
-    if (botaoAvaliar) {
-        const usuario = Taxatio.getUsuarioLogado();
-        if (!usuario) {
-            Taxatio.abrirAutenticacao("login");
-            return;
-        }
-        abrirFormularioAvaliacao(usuario);
-        return;
-    }
-
-    const botaoEditar = evento.target.closest("[data-editar-avaliacao]");
-    if (botaoEditar) {
-        const id = Number(botaoEditar.dataset.editarAvaliacao);
-        const avaliacao = avaliacoesAtuais.find((item) => item.id === id);
-        if (avaliacao) abrirFormularioEdicao(avaliacao);
-        return;
-    }
-
-    const botaoExcluir = evento.target.closest("[data-excluir-avaliacao]");
-    if (botaoExcluir) {
-        excluirAvaliacao(botaoExcluir.dataset.excluirAvaliacao);
-    }
-});
-
-document.addEventListener("taxatio:login", (evento) => {
-    const botaoAvaliar = document.querySelector('[data-auth-mode="review"]');
-    if (botaoAvaliar) {
-        abrirFormularioAvaliacao(evento.detail);
-    }
-});
-
-async function carregarProduto() {
-    if (!produtoId) {
-        shellProduto.innerHTML = '<div class="empty">Produto não informado.</div>';
-        return;
-    }
-
-    try {
-        const produto = await Taxatio.apiFetch(`/produtos/${produtoId}`);
-        const categorias = await Taxatio.apiFetch("/categorias");
-        const avaliacoes = await Taxatio.apiFetch("/avaliacoes");
-        const usuarios = await Taxatio.apiFetch("/usuarios");
-
-        const categoria = categorias.find((item) => item.id === produto.categoria_id) || { nome: "Sem categoria" };
-        const avaliacoesDoProduto = avaliacoes.filter((item) => item.produto_id === Number(produtoId));
-
-
-        // Coloca as avaliações do próprio usuário primeiro
-        const usuario = Taxatio.getUsuarioLogado();
-        const meuId = usuario ? Number(usuario.id) : -1;
-
-        avaliacoesDoProduto.sort((a, b) => {
-            const aMinha = Number(a.usuario_id) === meuId ? 0 : 1;
-            const bMinha = Number(b.usuario_id) === meuId ? 0 : 1;
-            return aMinha - bMinha;
-        });
-
-        const nomesPorUsuario = Object.fromEntries(
-            usuarios.map((usuario) => [usuario.id, usuario.nome])
+        await Taxatio.apiFetch(
+          review
+            ? `/avaliacoes/${review.id}`
+            : `/usuarios/${Taxatio.getUsuarioLogado().id}/avaliacoes`,
+          {
+            method: review ? "PUT" : "POST",
+            body: JSON.stringify(payload),
+          },
         );
-
-        renderizarProduto(produto, categoria, avaliacoesDoProduto, nomesPorUsuario);
-    } catch (erro) {
-        shellProduto.innerHTML = `<div class="empty">${erro.message} Verifique se a API está rodando.</div>`;
-        Taxatio.mostrarMensagem(erro.message, true);
+        Taxatio.showToast(
+          review ? "Avaliação atualizada." : "Avaliação publicada.",
+        );
+        await load();
+      } catch (error) {
+        area.querySelector("[data-review-error]").textContent = error.message;
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  }
+  async function deleteReview(reviewId) {
+    if (
+      !window.confirm(
+        "Excluir esta avaliação? Esta ação não pode ser desfeita.",
+      )
+    )
+      return;
+    try {
+      await Taxatio.apiFetch(`/avaliacoes/${reviewId}`, {
+        method: "DELETE",
+      });
+      Taxatio.showToast("Avaliação excluída.");
+      await load();
+    } catch (error) {
+      Taxatio.showToast(error.message, true);
     }
-}
-//proibir numeros maiores
-document.addEventListener("input", (evento) => {
-    const campo = evento.target;
-    if (campo.name !== "nota") return;
-
-    const valor = Number(campo.value);
-    if (valor > 10) campo.value = 10;
-    if (valor < 0) campo.value = 0;
-});
-carregarProduto();
+  }
+  async function generateSummary() {
+    const button = shell.querySelector("[data-ai-review-button]");
+    const text = shell.querySelector("[data-ai-review]");
+    button.disabled = true;
+    button.textContent = "Preparando resumo…";
+    try {
+      const result = await Taxatio.apiFetch("/api/tutoria", {
+        method: "POST",
+        body: JSON.stringify({
+          tipo: "avaliacoes_relevantes",
+          produto_id: Number(id),
+          limite: 10,
+        }),
+      });
+      text.textContent = result.resumo;
+    } catch (error) {
+      text.textContent = error.message;
+    } finally {
+      button.disabled = false;
+      button.textContent = "Gerar resumo ↗";
+    }
+  }
+  async function load() {
+    if (!Number.isInteger(id) || id < 1) {
+      shell.innerHTML = `<div class="error-state">
+        <h2>Produto não informado.</h2>
+        <p>Abra uma ficha a partir do catálogo.</p>
+        <a class="button button-primary" href="catalogo.html">Ir ao catálogo ↗</a>
+        </div>`;
+      return;
+    }
+    try {
+      [product, reviews] = await Promise.all([
+        Taxatio.apiFetch(`/produtos/${id}`),
+        Taxatio.apiFetch("/avaliacoes"),
+      ]);
+      reviews = reviews.filter((item) => Number(item.produto_id) === id);
+      const categories = await Taxatio.apiFetch("/categorias");
+      const category = categoryFor(categories);
+      authors = {};
+      render(category);
+    } catch (error) {
+      shell.innerHTML = `<div class="error-state">
+        <h2>Não foi possível abrir esta ficha.</h2>
+        <p>${escape(error.message)}</p>
+        <button class="button button-primary" data-retry>Recarregar ↻</button>
+        <a class="text-link" href="catalogo.html">Voltar ao catálogo</a>
+        </div>`;
+      shell.querySelector("[data-retry]").addEventListener("click", load);
+    }
+  }
+  document.addEventListener("taxatio:login", () => {
+    const area = shell.querySelector("[data-review-form-area]");
+    if (area && !area.firstElementChild) reviewForm();
+  });
+  load();
+})();

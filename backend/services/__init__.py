@@ -28,7 +28,10 @@ from .categoria.criar_categoria_service import CriarCategoriaService
 from .categoria.atualizar_categoria_service import AtualizarCategoriaService
 from .categoria.listar_categorias_service import ListarCategoriasService
 from .categoria.buscar_categoria_service import BuscarCategoriaService
-from .categoria.deletar_categoria_service import DeletarCategoriaService
+from .categoria.deletar_categoria_service import (
+    CategoriaComProdutosError,
+    DeletarCategoriaService,
+)
 from .tutoria import (
     GeminiService,
     ResumoProdutosEmAltaService,
@@ -45,7 +48,7 @@ __all__ = [
     "AdicionarProdutoCategoriaService", "RemoverProdutoCategoriaService",
     "ProdutosMaisAvaliadosService", "ProdutosPorCategoriaService",
     "CriarCategoriaService", "AtualizarCategoriaService", "ListarCategoriasService",
-    "BuscarCategoriaService", "DeletarCategoriaService",
+    "BuscarCategoriaService", "DeletarCategoriaService", "CategoriaComProdutosError",
     "GeminiService", "ResumoProdutosEmAltaService",
     "ResumoAvaliacoesProdutoService",
 ]

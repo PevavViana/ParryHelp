@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Compare lado a lado produtos avaliados pela comunidade Taxatio."
+    />
+    <title>Comparar produtos — Taxatio</title>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="stylesheet" href="css/site.css?v=terms-modal-1" />
+  </head>
+  <body data-page="compare">
+    <div data-site-header></div>
+    <main class="wrap page-main">
+      <header class="page-intro">
+        <p class="eyebrow">Comparação de produtos</p>
+        <h1>Compare com clareza.</h1>
+        <p>
+          Escolha até três produtos e veja as notas e avaliações reunidas num só
+          lugar.
+        </p>
+      </header>
+      <div class="compare-controls">
+        <label for="compare-search">Adicionar produto</label>
+        <div class="compare-search">
+          <input id="compare-search" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="compare-product-options" placeholder="Digite o nome de um produto" autocomplete="off" />
+          <div class="compare-search-options" id="compare-product-options" role="listbox" hidden></div>
+          <p class="compare-search-hint" data-compare-search-hint>Pesquise para encontrar produtos disponíveis.</p>
+        </div>
+        <button class="clear-action" type="button" data-clear-compare hidden>
+          <span aria-hidden="true">×</span>
+          <span>Limpar comparação</span>
+        </button>
+      </div>
+      <div data-compare-content>
+        <div class="empty-state">
+          <h2>Sua comparação começa aqui.</h2>
+          <p>
+            Adicione produtos para conferir nota, categoria e volume de
+            avaliações lado a lado.
+          </p>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main wrap">
+        <div class="footer-brand-column">
+          <a class="brand" href="index.html" aria-label="Taxatio, página inicial">
+            <img src="assets/logo.png" alt="" />
+            <span>taxatio</span>
+          </a>
+          <p>Experiências reais para escolhas de tecnologia mais conscientes.</p>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Explorar</h2>
+          <a href="catalogo.html">Todos os produtos</a>
+          <a href="catalogo.html">Em destaque</a>
+          <a href="catalogo.html">Pesquisar produtos</a>
+          <a href="gerenciar.html">Gerenciar catálogo</a>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Comparar</h2>
+          <a href="comparar.html">Montar comparação</a>
+          <a href="catalogo.html">Pesquisar produtos</a>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Conta</h2>
+          <a href="conta.html">Minha conta</a>
+          <button type="button" data-open-auth data-auth-mode="login">Entrar</button>
+          <button type="button" data-open-auth data-auth-mode="register">Criar conta</button>
+        </div>
+        <div class="footer-nav-column">
+          <h2>Legal</h2>
+          <p>As notas refletem as experiências compartilhadas pela comunidade.</p>
+        </div>
+      </div>
+      <div class="footer-bottom wrap">
+        <span>© <span data-year></span> Taxatio</span>
+      </div>
+    </footer>
+    <div data-global-ui></div>
+    <script type="module" src="js/common.js?v=terms-modal-1"></script>
+    <script type="module" src="js/compare.js?v=2"></script>
+  </body>
+</html>

@@ -14,6 +14,17 @@ CREATE TABLE IF NOT EXISTS usuarios (
     data_atualizacao DATETIME NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS termos_aceitos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    documento VARCHAR(40) NOT NULL,
+    versao VARCHAR(20) NOT NULL,
+    data_criacao DATETIME NOT NULL,
+    data_atualizacao DATETIME NOT NULL,
+    UNIQUE KEY uq_termo_aceito_usuario_documento_versao (usuario_id, documento, versao),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -35,7 +46,7 @@ CREATE TABLE IF NOT EXISTS produtos (
 CREATE TABLE IF NOT EXISTS avaliacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
-    descricao VARCHAR(300) NOT NULL,
+    descricao VARCHAR(120) NOT NULL,
     nota FLOAT NOT NULL,
     data DATE NOT NULL,
     usuario_id INT NOT NULL,

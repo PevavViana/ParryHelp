@@ -39,10 +39,12 @@ def create_app():
                 "login": "POST /usuarios/login",
                 "avaliacoes": "GET /avaliacoes, GET/PUT/DELETE /avaliacoes/<id>",
                 "criar_avaliacao": "POST /usuarios/<usuario_id>/avaliacoes",
-                "produtos": "GET/POST /produtos, GET/DELETE /produtos/<id>",
-                "categorias": "GET/POST /categorias, GET/DELETE /categorias/<id>",
+                "produtos": "GET/POST /produtos, GET/PUT/DELETE /produtos/<id>",
+                "produtos_mais_avaliados": "GET /produtos/mais-avaliados",
+                "produtos_por_categoria": "GET /categorias/<id>/produtos",
+                "categorias": "GET/POST /categorias, GET/PUT/DELETE /categorias/<id>",
                 "adicionar_produto_categoria": "POST /categorias/<id>/produtos",
-                "remover_produto_categoria": "DELETE /categorias/<id>/produtos",
+                "mover_produto_categoria": "DELETE /categorias/<id>/produtos",
                 "tutoria": "POST /api/tutoria",
             }
         })

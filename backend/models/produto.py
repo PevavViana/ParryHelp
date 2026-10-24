@@ -13,13 +13,15 @@ class Produto(ModeloBase):
     categoria = db.relationship("Categoria",  back_populates="produtos")
     avaliacoes = db.relationship("Avaliacao", back_populates="produto", cascade="all, delete-orphan")
 
-    def atualizar(self, nome=None, descricao=None, imagem_url=None):
+    def atualizar(self, nome=None, descricao=None, imagem_url=None, categoria_id=None):
         if nome is not None:
             self.nome = nome
         if descricao is not None:
             self.descricao = descricao
         if imagem_url is not None:
             self.imagem_url = imagem_url
+        if categoria_id is not None:
+            self.categoria_id = categoria_id
         db.session.commit()
 
     def calcular_media(self):

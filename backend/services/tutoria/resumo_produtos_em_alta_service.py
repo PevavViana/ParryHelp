@@ -6,6 +6,9 @@ from .gemini_service import GeminiService
 
 class ResumoProdutosEmAltaService:
     def executar(self, limite=5):
+        if isinstance(limite, bool) or not isinstance(limite, int) or limite < 1 or limite > 10:
+            raise ValueError("O limite deve ser um número entre 1 e 10.")
+
         produtos = ProdutoRepository.produtos_em_alta(limite)
 
         if not produtos:

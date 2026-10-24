@@ -10,6 +10,7 @@ class Usuario(ModeloBase):
     cpf        = db.Column(db.String(14),  unique=True,    nullable=False)
 
     avaliacoes = db.relationship("Avaliacao", back_populates="usuario", cascade="all, delete-orphan")
+    termos_aceitos = db.relationship("TermoAceite", back_populates="usuario", cascade="all, delete-orphan")
     
     def atualizar(self, nome=None, email=None, senha=None, cpf=None):
         if nome is not None: 
