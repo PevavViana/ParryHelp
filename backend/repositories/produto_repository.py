@@ -1,26 +1,26 @@
-from sqlalchemy import text, func
-from models import db, Produto, Avaliacao, Categoria
+from sqlalchemy import text
+from models import db
 
 class ProdutoRepository:
     @staticmethod
     def produtos_em_alta(limite=5):
-        resultado = (
-            db.session.query(
-                Produto.id,
-                Produto.nome,
-                Produto.descricao,
-                Categoria.nome.label("categoria_nome"),
-                func.avg(Avaliacao.nota).label("media_notas"),
-                func.count(Avaliacao.id).label("total_avaliacoes"),
-            )
-            .join(Categoria, Categoria.id == Produto.categoria_id)
-            .join(Avaliacao, Avaliacao.produto_id == Produto.id)
-            .group_by(Produto.id, Produto.nome, Produto.descricao, Categoria.nome)
-            .order_by(func.count(Avaliacao.id).desc(), func.avg(Avaliacao.nota).desc())
-            .limit(limite)
-            .all()
-        )
-        return [dict(linha._mapping) for linha in resultado]
+        sql = text("""
+            SELECT
+                p.id,
+                p.nome,
+                p.descricao,
+                c.nome AS categoria_nome,
+                AVG(a.nota) AS media_notas,
+                COUNT(a.id) AS total_avaliacoes
+            FROM produtos p
+            JOIN categorias c ON c.id = p.categoria_id
+            JOIN avaliacoes a ON a.produto_id = p.id
+            GROUP BY p.id, p.nome, p.descricao, c.nome
+            ORDER BY COUNT(a.id) DESC, AVG(a.nota) DESC
+            LIMIT :limite
+        """)
+        resultado = db.session.execute(sql, {"limite": limite})
+        return [dict(linha) for linha in resultado.mappings()]
 
     @staticmethod
     def produtos_mais_avaliados(limite=5):
@@ -33,22 +33,22 @@ class ProdutoRepository:
             return [dict(linha) for linha in linhas]
 
         # OBS: Esse bloco serve pra facilitar os testes locais com o SQLite em sala
-        resultado = (
-            db.session.query(
-                Produto.id,
-                Produto.nome,
-                Produto.descricao,
-                Produto.categoria_id,
-                func.avg(Avaliacao.nota).label("media_notas"),
-                func.count(Avaliacao.id).label("total_avaliacoes"),
-            )
-            .join(Avaliacao, Avaliacao.produto_id == Produto.id)
-            .group_by(Produto.id, Produto.nome, Produto.descricao, Produto.categoria_id)
-            .order_by(func.avg(Avaliacao.nota).desc())
-            .limit(limite)
-            .all()
-        )
-        return [dict(linha._mapping) for linha in resultado]
+        sql = text("""
+            SELECT
+                p.id,
+                p.nome,
+                p.descricao,
+                p.categoria_id,
+                AVG(a.nota) AS media_notas,
+                COUNT(a.id) AS total_avaliacoes
+            FROM produtos p
+            JOIN avaliacoes a ON a.produto_id = p.id
+            GROUP BY p.id, p.nome, p.descricao, p.categoria_id
+            ORDER BY AVG(a.nota) DESC
+            LIMIT :limite
+        """)
+        resultado = db.session.execute(sql, {"limite": limite})
+        return [dict(linha) for linha in resultado.mappings()]
 
     @staticmethod
     def produtos_por_categoria(categoria_id):
@@ -61,18 +61,16 @@ class ProdutoRepository:
             return [dict(linha) for linha in linhas]
 
         # OBS: Esse bloco serve pra facilitar os testes locais com o SQLite em sala
-        produtos = (
-            Produto.query
-            .filter(Produto.categoria_id == categoria_id)
-            .order_by(Produto.nome.asc())
-            .all()
-        )
-        return [
-            {
-                "id": produto.id,
-                "nome": produto.nome,
-                "descricao": produto.descricao,
-                "categoria_nome": produto.categoria.nome,
-            }
-            for produto in produtos
-        ]
+        sql = text("""
+            SELECT
+                p.id,
+                p.nome,
+                p.descricao,
+                c.nome AS categoria_nome
+            FROM produtos p
+            JOIN categorias c ON c.id = p.categoria_id
+            WHERE p.categoria_id = :categoria_id
+            ORDER BY p.nome ASC
+        """)
+        resultado = db.session.execute(sql, {"categoria_id": categoria_id})
+        return [dict(linha) for linha in resultado.mappings()]
