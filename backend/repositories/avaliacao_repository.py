@@ -1,17 +1,30 @@
 from sqlalchemy import text
-from models import db, Avaliacao
+from models import db
+
 
 class AvaliacaoRepository:
     @staticmethod
     def por_produto(produto_id, limite=10):
-        avaliacoes = (
-            Avaliacao.query
-            .filter(Avaliacao.produto_id == produto_id)
-            .order_by(Avaliacao.nota.desc(), Avaliacao.data.desc())
-            .limit(limite)
-            .all()
+        sql = text("""
+            SELECT id, titulo, descricao, nota, data, usuario_id, produto_id
+            FROM avaliacoes
+            WHERE produto_id = :produto_id
+            ORDER BY data DESC
+            LIMIT :limite
+        """)
+
+        resultado = db.session.execute(
+            sql,
+            {"produto_id": produto_id, "limite": limite},
         )
-        return [avaliacao.to_dict() for avaliacao in avaliacoes]
+
+        avaliacoes = []
+        for linha in resultado.mappings():
+            avaliacao = dict(linha)
+            if hasattr(avaliacao["data"], "isoformat"):
+                avaliacao["data"] = avaliacao["data"].isoformat()
+            avaliacoes.append(avaliacao)
+        return avaliacoes
 
     @staticmethod
     def historico_por_usuario(usuario_id):
@@ -31,24 +44,21 @@ class AvaliacaoRepository:
             return avaliacoes
 
         # OBS: Esse bloco serve pra facilitar os testes locais com o SQLite em sala
-        avaliacoes = (
-            Avaliacao.query
-            .filter(Avaliacao.usuario_id == usuario_id)
-            .order_by(Avaliacao.data.desc())
-            .all()
-        )
-        return [
-            {
-                "id": avaliacao.id,
-                "titulo": avaliacao.titulo,
-                "descricao": avaliacao.descricao,
-                "nota": avaliacao.nota,
-                "data": avaliacao.data.isoformat(),
-                "produto_nome": avaliacao.produto.nome,
-            }
-            for avaliacao in avaliacoes
-        ]
-
+        sql = text("""
+            SELECT
+                a.id,
+                a.titulo,
+                a.descricao,
+                a.nota,
+                a.data,
+                p.nome AS produto_nome
+            FROM avaliacoes a
+            JOIN produtos p ON p.id = a.produto_id
+            WHERE a.usuario_id = :usuario_id
+            ORDER BY a.data DESC
+        """)
+        resultado = db.session.execute(sql, {"usuario_id": usuario_id})
+        return [dict(linha) for linha in resultado.mappings()]
 
 
 
