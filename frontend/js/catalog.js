@@ -222,8 +222,8 @@
           : state.ranking === option.id && !state.category;
 
         return `<li>
-          <button class="filter-button ${active ? "active" : ""}" type="button" data-ranking="${Taxatio.escapeHTML(option.id)}" ${option.categoryId ? `data-category="${Taxatio.escapeHTML(option.categoryId)}"` : ""} aria-pressed="${active}">
-            <span>${Taxatio.escapeHTML(option.label)}</span>
+          <button class="filter-button ${active ? "active" : ""}" type="button" data-ranking="${ParryHelp.escapeHTML(option.id)}" ${option.categoryId ? `data-category="${ParryHelp.escapeHTML(option.categoryId)}"` : ""} aria-pressed="${active}">
+            <span>${ParryHelp.escapeHTML(option.label)}</span>
             <span class="filter-count">${option.count.toLocaleString("pt-BR")}</span>
           </button>
         </li>`;
@@ -283,9 +283,9 @@
       ? ranked
           .map(
             (product, index) => `<li>
-              <a href="${productUrl(product.id)}" aria-label="${Taxatio.escapeHTML(product.nome)}, ${productReviews(product.id)} reclamações">
+              <a href="${productUrl(product.id)}" aria-label="${ParryHelp.escapeHTML(product.nome)}, ${productReviews(product.id)} reclamações">
                 <span class="top-rank">${String(index + 1).padStart(2, "0")}</span>
-                <span class="top-product-name">${Taxatio.escapeHTML(product.nome)}</span>
+                <span class="top-product-name">${ParryHelp.escapeHTML(product.nome)}</span>
                 ${todayReviewCount(product.id) ? `<strong class="top-new-count">+${todayReviewCount(product.id)} hoje</strong>` : ""}
               </a>
             </li>`,
@@ -301,22 +301,22 @@
     const ratingPercent = Math.min(100, Math.max(0, rating * 10));
     const image =
       product.imagem_url && /^https?:\/\//i.test(product.imagem_url)
-        ? `<img loading="lazy" src="${Taxatio.escapeHTML(product.imagem_url)}" alt="" onerror="this.remove()">`
-        : `<span aria-hidden="true">${Taxatio.escapeHTML(product.nome.trim().charAt(0).toUpperCase() || "T")}</span>`;
+        ? `<img loading="lazy" src="${ParryHelp.escapeHTML(product.imagem_url)}" alt="" onerror="this.remove()">`
+        : `<span aria-hidden="true">${ParryHelp.escapeHTML(product.nome.trim().charAt(0).toUpperCase() || "T")}</span>`;
     const topics = reportTopics(product.id);
     const days = daysSinceReview(latestReview);
     const excerpt = latestReview
       ? latestReview.descricao || latestReview.titulo
       : "Ainda não há relatos da comunidade para este produto.";
 
-    return `<article class="product-card" data-product-card="${productUrl(product.id)}" tabindex="0" aria-label="${Taxatio.escapeHTML(product.nome)}. Abrir ficha do produto.">
+    return `<article class="product-card" data-product-card="${productUrl(product.id)}" tabindex="0" aria-label="${ParryHelp.escapeHTML(product.nome)}. Abrir ficha do produto.">
       <div class="product-summary">
         <div class="product-thumb" aria-hidden="true">${image}</div>
         <div class="product-info">
-          <h2><a href="${productUrl(product.id)}">${Taxatio.escapeHTML(product.nome)}</a></h2>
-          <span class="product-meta">${Taxatio.escapeHTML(categoryName(product.categoria_id))}</span>
+          <h2><a href="${productUrl(product.id)}">${ParryHelp.escapeHTML(product.nome)}</a></h2>
+          <span class="product-meta">${ParryHelp.escapeHTML(categoryName(product.categoria_id))}</span>
           <div class="product-tags" aria-label="Assuntos recorrentes">
-            ${topics.length ? topics.map((topic) => `<span class="problem-tag problem-tag-${topicTone(topic.title)}" title="${topic.count} relatos">${Taxatio.escapeHTML(topic.title)}</span>`).join("") : '<span class="problem-tag problem-tag-muted">Sem relatos</span>'}
+            ${topics.length ? topics.map((topic) => `<span class="problem-tag problem-tag-${topicTone(topic.title)}" title="${topic.count} relatos">${ParryHelp.escapeHTML(topic.title)}</span>`).join("") : '<span class="problem-tag problem-tag-muted">Sem relatos</span>'}
             <label class="compare-check">
               <input type="checkbox" data-compare-product="${Number(product.id)}"> Comparar
             </label>
@@ -324,7 +324,7 @@
         </div>
       </div>
       <div class="product-report">
-        <blockquote>“${Taxatio.escapeHTML(excerpt)}”</blockquote>
+        <blockquote>“${ParryHelp.escapeHTML(excerpt)}”</blockquote>
         <p class="last-review">${latestReview ? `Última avaliação: ${days === 0 ? "hoje" : `há ${days} ${days === 1 ? "dia" : "dias"}`}` : "Aguardando a primeira avaliação"}</p>
       </div>
       <div class="product-score">
@@ -407,7 +407,7 @@
             <div class="catalog-error-shape" aria-hidden="true"><span></span><i></i></div>
             <div class="catalog-state-copy">
               <h2>Não conseguimos carregar os produtos.</h2>
-              <p>A conexão com a Taxatio falhou. Tente novamente em instantes.</p>
+              <p>A conexão com o Parry Help falhou. Tente novamente em instantes.</p>
               <button class="button button-primary" type="button" data-retry>Recarregar catálogo <span aria-hidden="true">↻</span></button>
             </div>
           </div>`
@@ -440,7 +440,7 @@
             : ids.filter((id) => id !== Number(checkbox.dataset.compareProduct));
 
           sessionStorage.setItem("taxatio_compare", JSON.stringify(ids));
-          Taxatio.showToast(
+          ParryHelp.showToast(
             checkbox.checked && ids.length === 3
               ? "A comparação já tem três produtos."
               : "Seleção atualizada.",
@@ -469,13 +469,13 @@
 
     try {
       [state.categories, state.products, state.reviews] = await Promise.all([
-        Taxatio.apiFetch("/categorias"),
-        Taxatio.apiFetch("/produtos"),
-        Taxatio.apiFetch("/avaliacoes"),
+        ParryHelp.apiFetch("/categorias"),
+        ParryHelp.apiFetch("/produtos"),
+        ParryHelp.apiFetch("/avaliacoes"),
       ]);
     } catch (error) {
       state.failed = true;
-      Taxatio.showToast(error.message, true);
+      ParryHelp.showToast(error.message, true);
     }
 
     render();

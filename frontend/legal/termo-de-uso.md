@@ -1,24 +1,24 @@
 # TERMO DE USO DO SISTEMA PARRYHELP
 
-Este Termo de Uso (“Termo”) é um acordo legal entre você, o(a) usuário(a) do sistema ParryHelp, e os desenvolvedores do Projeto ParryHelp (doravante denominado ParryHelp ou Nós), uma plataforma destinada à publicação, consulta, avaliação e recomendação de produtos de tecnologia, permitindo que consumidores compartilhem suas experiências, opiniões e avaliações sobre produtos e marcas.
+Este Termo de Uso (“Termo”) é um acordo legal entre você, o(a) usuário(a) do sistema Parry Help, e os desenvolvedores do Projeto Parry Help (doravante denominado Parry Help ou Nós), uma plataforma destinada à publicação, consulta, avaliação e recomendação de produtos de tecnologia, permitindo que consumidores compartilhem suas experiências, opiniões e avaliações sobre produtos e marcas.
 
-Ao acessar ou utilizar o ParryHelp, você manifesta sua concordância integral com este Termo de Uso, com a Política de Privacidade e com a Lei Geral de Proteção de Dados Pessoais (LGPD – Lei nº 13.709/2018). Se você não concordar com estes termos, não deverá utilizar o sistema.
+Ao acessar ou utilizar o Parry Help, você manifesta sua concordância integral com este Termo de Uso, com a Política de Privacidade e com a Lei Geral de Proteção de Dados Pessoais (LGPD – Lei nº 13.709/2018). Se você não concordar com estes termos, não deverá utilizar o sistema.
 
 ## CLÁUSULA PRIMEIRA – DAS CONDIÇÕES GERAIS DE USO
 
-O ParryHelp é destinado à publicação, consulta, avaliação e recomendação de produtos de tecnologia, proporcionando aos usuários um ambiente organizado para compartilhar experiências reais de utilização e auxiliar outros consumidores na tomada de decisões relacionadas à aquisição de produtos.
+O Parry Help é destinado à publicação, consulta, avaliação e recomendação de produtos de tecnologia, proporcionando aos usuários um ambiente organizado para compartilhar experiências reais de utilização e auxiliar outros consumidores na tomada de decisões relacionadas à aquisição de produtos.
 
 A plataforma busca promover avaliações autênticas, transparentes e relevantes, permitindo que os usuários expressem suas experiências e opiniões de forma responsável.
 
-O ParryHelp poderá utilizar mecanismos automatizados e ferramentas de Inteligência Artificial para auxiliar na análise das avaliações publicadas, especialmente com o objetivo de identificar possíveis conteúdos artificiais, automatizados, fraudulentos, manipulados ou produzidos com a intenção de prejudicar indevidamente determinado produto ou marca.
+O Parry Help poderá utilizar mecanismos automatizados e ferramentas de Inteligência Artificial para auxiliar na análise das avaliações publicadas, especialmente com o objetivo de identificar possíveis conteúdos artificiais, automatizados, fraudulentos, manipulados ou produzidos com a intenção de prejudicar indevidamente determinado produto ou marca.
 
 Os mecanismos de Inteligência Artificial possuem caráter de apoio à análise e não constituem, isoladamente, garantia absoluta de que determinada avaliação tenha sido produzida por uma pessoa ou por uma máquina.
 
-O ParryHelp poderá também estabelecer relações comerciais com fabricantes, marcas e empresas interessadas em receber avaliações, opiniões e feedbacks relacionados aos seus produtos. Tais relações comerciais não autorizam a manipulação, alteração ou remoção indevida das opiniões dos usuários.
+O Parry Help poderá também estabelecer relações comerciais com fabricantes, marcas e empresas interessadas em receber avaliações, opiniões e feedbacks relacionados aos seus produtos. Tais relações comerciais não autorizam a manipulação, alteração ou remoção indevida das opiniões dos usuários.
 
 ## CLÁUSULA SEGUNDA – DA COLETA E USO DE DADOS PESSOAIS
 
-O usuário declara estar ciente da coleta e uso dos seguintes dados pelo ParryHelp, utilizados exclusivamente para as finalidades indicadas:
+O usuário declara estar ciente da coleta e uso dos seguintes dados pelo Parry Help, utilizados exclusivamente para as finalidades indicadas:
 
 * Nome completo: utilizado para identificação do usuário e correta vinculação de sua conta e de suas atividades na plataforma.
 * CPF: utilizado para identificação e controle de unicidade de cadastro, permitindo a manutenção da regra de uma única conta por pessoa, bem como para formalização e manutenção do contrato de originalidade estabelecido com o cliente.
@@ -29,7 +29,7 @@ O tratamento dos dados pessoais deverá observar os princípios e requisitos est
 
 ## CLÁUSULA TERCEIRA – FINALIDADE DA COLETA
 
-A coleta dos dados mencionados tem finalidades específicas e essenciais para a operação do ParryHelp e a conformidade com a LGPD:
+A coleta dos dados mencionados tem finalidades específicas e essenciais para a operação do Parry Help e a conformidade com a LGPD:
 
 * Nome completo: identificação do usuário e vinculação das avaliações à respectiva conta.
 * CPF: controle de unicidade de cadastro, permitindo que cada pessoa mantenha apenas uma conta na plataforma, além da formalização e manutenção do contrato de originalidade.
@@ -40,7 +40,7 @@ Os dados coletados não serão utilizados para finalidades incompatíveis com aq
 
 ## CLÁUSULA QUARTA – VEDAÇÕES DO USO
 
-O usuário compromete-se a utilizar o ParryHelp de maneira responsável, ética e de acordo com a legislação brasileira, sendo expressamente proibida a utilização da plataforma para qualquer finalidade ilícita, fraudulenta, abusiva ou que viole este Termo de Uso.
+O usuário compromete-se a utilizar o Parry Help de maneira responsável, ética e de acordo com a legislação brasileira, sendo expressamente proibida a utilização da plataforma para qualquer finalidade ilícita, fraudulenta, abusiva ou que viole este Termo de Uso.
 
 É expressamente proibido ao usuário:
 
@@ -51,29 +51,29 @@ O usuário compromete-se a utilizar o ParryHelp de maneira responsável, ética 
 5. Praticar assédio, bullying, perseguição ou intimidação contra outros usuários, funcionários, colaboradores ou representantes de empresas.
 6. Acessar, tentar acessar, alterar, bloquear, excluir, danificar ou assumir o controle da conta de outro usuário sem autorização.
 7. Tentar obter, utilizar, divulgar ou modificar dados pessoais de outros usuários sem autorização ou fundamento legal.
-8. Criar, utilizar ou controlar múltiplas contas com a finalidade de burlar a regra de uma conta por pessoa, manipular avaliações, obter vantagens indevidas ou contornar medidas de segurança aplicadas pelo ParryHelp.
+8. Criar, utilizar ou controlar múltiplas contas com a finalidade de burlar a regra de uma conta por pessoa, manipular avaliações, obter vantagens indevidas ou contornar medidas de segurança aplicadas pelo Parry Help.
 9. Criar avaliações, comentários ou recomendações falsos, especialmente quando produzidos com o objetivo deliberado de beneficiar ou prejudicar determinado produto, marca, empresa ou usuário.
-10. Utilizar bots, scripts, automações ou sistemas artificiais para gerar avaliações, comentários, curtidas, classificações ou qualquer outra interação falsa na plataforma, salvo quando expressamente autorizado pelo ParryHelp para finalidades técnicas ou de teste.
+10. Utilizar bots, scripts, automações ou sistemas artificiais para gerar avaliações, comentários, curtidas, classificações ou qualquer outra interação falsa na plataforma, salvo quando expressamente autorizado pelo Parry Help para finalidades técnicas ou de teste.
 11. Manipular artificialmente a reputação de produtos ou marcas, seja por meio da criação massiva de avaliações positivas ou negativas, seja por qualquer outra forma de interferência artificial.
-12. Tentar enganar ou burlar os mecanismos de Inteligência Artificial, segurança ou verificação utilizados pelo ParryHelp, incluindo tentativas deliberadas de ocultar a origem automatizada de avaliações.
+12. Tentar enganar ou burlar os mecanismos de Inteligência Artificial, segurança ou verificação utilizados pelo Parry Help, incluindo tentativas deliberadas de ocultar a origem automatizada de avaliações.
 13. Publicar avaliações com informações deliberadamente falsas com o objetivo de prejudicar a reputação de um produto, marca, empresa ou pessoa.
-14. Publicar avaliações em troca de pagamento, benefício, recompensa ou vantagem indevida, quando isso não estiver expressamente autorizado e identificado de acordo com as regras do ParryHelp.
+14. Publicar avaliações em troca de pagamento, benefício, recompensa ou vantagem indevida, quando isso não estiver expressamente autorizado e identificado de acordo com as regras do Parry Help.
 15. Violar direitos autorais, marcas, patentes, propriedade intelectual ou outros direitos de terceiros.
 16. Publicar informações confidenciais ou dados pessoais de terceiros, incluindo CPF, endereço, telefone, documentos, senhas, informações bancárias ou outras informações privadas sem autorização ou fundamento legal.
-17. Tentar acessar áreas, bancos de dados, sistemas, APIs ou funcionalidades restritas do ParryHelp sem autorização.
+17. Tentar acessar áreas, bancos de dados, sistemas, APIs ou funcionalidades restritas do Parry Help sem autorização.
 18. Realizar ataques, tentativas de invasão, exploração de vulnerabilidades, distribuição de malware ou qualquer outra atividade que possa comprometer a segurança ou funcionamento da plataforma.
-19. Utilizar o ParryHelp para aplicar golpes, fraudes, esquemas de phishing ou outras práticas destinadas a enganar usuários ou terceiros.
+19. Utilizar o Parry Help para aplicar golpes, fraudes, esquemas de phishing ou outras práticas destinadas a enganar usuários ou terceiros.
 20. Utilizar a plataforma para prejudicar deliberadamente outro usuário, incluindo tentativa de derrubar sua conta, manipular suas informações, expor seus dados ou impedir seu acesso legítimo à plataforma.
-21. Manipular avaliações, classificações, recomendações ou resultados apresentados pelo ParryHelp por meios fraudulentos ou artificiais.
+21. Manipular avaliações, classificações, recomendações ou resultados apresentados pelo Parry Help por meios fraudulentos ou artificiais.
 22. Utilizar a plataforma para ameaçar, extorquir ou exigir vantagens de empresas ou usuários em troca da publicação, alteração ou remoção de avaliações.
-23. Utilizar informações obtidas no ParryHelp para perseguir, assediar, ameaçar ou prejudicar outros usuários.
-24. Praticar qualquer atividade que comprometa a segurança, estabilidade, disponibilidade, integridade ou funcionamento do ParryHelp.
+23. Utilizar informações obtidas no Parry Help para perseguir, assediar, ameaçar ou prejudicar outros usuários.
+24. Praticar qualquer atividade que comprometa a segurança, estabilidade, disponibilidade, integridade ou funcionamento do Parry Help.
 
 O descumprimento destas regras poderá resultar, conforme a gravidade da conduta e respeitados os procedimentos aplicáveis, em advertência, remoção de conteúdo, limitação de funcionalidades, suspensão ou encerramento da conta, sem prejuízo da adoção das medidas administrativas ou judiciais cabíveis.
 
 ## CLÁUSULA QUINTA – DA CIÊNCIA E ACEITE DOS TERMOS
 
-O uso do Sistema ParryHelp pressupõe a leitura prévia, a compreensão e a concordância com este Termo de Uso, com a Política de Privacidade e com as disposições da Lei nº 13.709/2018 (LGPD).
+O uso do Sistema Parry Help pressupõe a leitura prévia, a compreensão e a concordância com este Termo de Uso, com a Política de Privacidade e com as disposições da Lei nº 13.709/2018 (LGPD).
 
 O consentimento para o tratamento de dados pessoais, quando esta for a base legal aplicável, é coletado de forma expressa, específica e destacada, conforme exige o art. 8º da LGPD, sendo vedada sua obtenção por aceitação genérica, tácita ou implícita.
 
@@ -81,7 +81,7 @@ O titular que não concordar com estes termos deverá abster-se de utilizar o si
 
 ## CLÁUSULA SEXTA – DA PROTEÇÃO DOS DADOS
 
-O ParryHelp compromete-se a adotar medidas técnicas e administrativas em conformidade com a LGPD e normas ISO/IEC 27001, 27701 e 29100:
+O Parry Help compromete-se a adotar medidas técnicas e administrativas em conformidade com a LGPD e normas ISO/IEC 27001, 27701 e 29100:
 
 * Criptografia dos dados armazenados, quando tecnicamente aplicável.
 * Banco de dados seguro, com autenticação robusta e acesso restrito.
@@ -93,14 +93,14 @@ O ParryHelp compromete-se a adotar medidas técnicas e administrativas em confor
 
 ## CLÁUSULA SÉTIMA – DO COMPARTILHAMENTO DE DADOS
 
-Os dados pessoais armazenados pelo ParryHelp não serão compartilhados com terceiros, exceto:
+Os dados pessoais armazenados pelo Parry Help não serão compartilhados com terceiros, exceto:
 
 * Quando autorizado expressamente pelo titular.
 * Mediante obrigação legal ou ordem judicial.
 * Para auxílio técnico restrito e necessário à operação, segurança ou manutenção da plataforma.
 * Quando o compartilhamento for necessário para o cumprimento de obrigação legal ou regulatória, observados os limites estabelecidos pela legislação aplicável.
 
-Eventuais relações comerciais estabelecidas entre o ParryHelp e fabricantes, marcas ou empresas não autorizam o compartilhamento indiscriminado dos dados pessoais dos usuários.
+Eventuais relações comerciais estabelecidas entre o Parry Help e fabricantes, marcas ou empresas não autorizam o compartilhamento indiscriminado dos dados pessoais dos usuários.
 
 A existência de parceria comercial não permitirá que empresas parceiras alterem, removam ou manipulem avaliações publicadas pelos usuários de forma contrária às regras da plataforma ou à legislação aplicável.
 
@@ -125,7 +125,7 @@ Canal de contato do Encarregado (DPO): _________________________________________
 
 ## CLÁUSULA NONA – DA IDENTIFICAÇÃO DO RESPONSÁVEL PELO TRATAMENTO DOS DADOS
 
-O Projeto ParryHelp é responsável pelo tratamento dos dados pessoais e indicará formalmente o Encarregado de Dados (DPO):
+O Projeto Parry Help é responsável pelo tratamento dos dados pessoais e indicará formalmente o Encarregado de Dados (DPO):
 
 Nome do responsável: __________________________________________
 Cargo/Função: _______________________________________________
@@ -133,15 +133,15 @@ CPF/Documento: ______________________________________________
 
 ## CLÁUSULA DÉCIMA – DA RESPONSABILIDADE NA EXATIDÃO DOS DADOS
 
-O usuário é responsável pela exatidão, veracidade e atualização dos dados fornecidos ao ParryHelp.
+O usuário é responsável pela exatidão, veracidade e atualização dos dados fornecidos ao Parry Help.
 
 O usuário também é responsável pelo conteúdo, informações e opiniões presentes nas avaliações e recomendações que publicar na plataforma.
 
-O ParryHelp não se responsabiliza por informações falsas, incorretas ou desatualizadas voluntariamente fornecidas pelo usuário, nem por opiniões publicadas por terceiros, sem prejuízo das medidas cabíveis quando identificadas violações às regras da plataforma ou à legislação aplicável.
+O Parry Help não se responsabiliza por informações falsas, incorretas ou desatualizadas voluntariamente fornecidas pelo usuário, nem por opiniões publicadas por terceiros, sem prejuízo das medidas cabíveis quando identificadas violações às regras da plataforma ou à legislação aplicável.
 
 ## CLÁUSULA DÉCIMA PRIMEIRA – DA TRANSPARÊNCIA
 
-O ParryHelp garante transparência sobre o tratamento dos dados pessoais e sobre as regras aplicáveis à utilização da plataforma.
+O Parry Help garante transparência sobre o tratamento dos dados pessoais e sobre as regras aplicáveis à utilização da plataforma.
 
 Os requerimentos dos titulares relativos aos seus dados pessoais serão atendidos em prazo não superior a 15 (quinze) dias, contados da data da solicitação, conforme art. 18, § 3º, da LGPD.
 
@@ -149,11 +149,11 @@ Caso a resposta não seja satisfatória, o titular poderá peticionar diretament
 
 O tratamento de dados pessoais deve sempre estar fundamentado em base legal adequada (art. 7º da LGPD), a qual deverá ser indicada de forma específica para cada atividade de tratamento desenvolvida pelo sistema.
 
-O ParryHelp também buscará manter transparência quanto à utilização de mecanismos automatizados e de Inteligência Artificial empregados para auxiliar na análise das avaliações, deixando claro que tais mecanismos possuem finalidade de apoio à identificação de possíveis irregularidades e não representam, isoladamente, prova absoluta de fraude ou autenticidade.
+O Parry Help também buscará manter transparência quanto à utilização de mecanismos automatizados e de Inteligência Artificial empregados para auxiliar na análise das avaliações, deixando claro que tais mecanismos possuem finalidade de apoio à identificação de possíveis irregularidades e não representam, isoladamente, prova absoluta de fraude ou autenticidade.
 
 ## CLÁUSULA DÉCIMA SEGUNDA – DO TRATAMENTO DE DADOS DE CRIANÇAS E ADOLESCENTES
 
-O ParryHelp observa as disposições do art. 14 da LGPD, quando aplicáveis, quanto ao tratamento de dados de crianças e adolescentes, adotando os seguintes princípios:
+O Parry Help observa as disposições do art. 14 da LGPD, quando aplicáveis, quanto ao tratamento de dados de crianças e adolescentes, adotando os seguintes princípios:
 
 * O tratamento de dados pessoais de crianças (menores de 12 anos) somente ocorrerá mediante consentimento específico e em destaque dado por pelo menos um dos pais ou responsável legal.
 * O tratamento de dados pessoais de adolescentes (maiores de 12 anos e menores de 18 anos) será realizado de forma prioritária no seu melhor interesse, garantindo segurança, privacidade e respeito ao desenvolvimento.

@@ -1,6 +1,9 @@
 (() => {
   "use strict";
-  const API_URL = window.TAXATIO_API_URL || "http://127.0.0.1:5000";
+  const API_URL =
+    window.PARRY_HELP_API_URL ||
+    window.TAXATIO_API_URL ||
+    "http://127.0.0.1:5000";
   const escapeHTML = (value = "") =>
     String(value).replace(
       /[&<>"']/g,
@@ -40,7 +43,7 @@
       });
     } catch {
       throw new Error(
-        "Não foi possível conectar à Taxatio. Confira se a API está disponível e tente novamente.",
+        "Não foi possível conectar ao Parry Help. Confira se a API está disponível e tente novamente.",
       );
     }
     const raw = await response.text();
@@ -64,9 +67,9 @@
   if (headerRoot)
     headerRoot.innerHTML = `<header class="site-header">
         <div class="header-inner wrap">
-        <a class="brand" href="index.html" aria-label="Taxatio, página inicial">
+        <a class="brand" href="index.html" aria-label="Parry Help, página inicial">
         <img src="assets/logo.png" alt="">
-        <span>taxatio</span>
+        <span>Parry Help</span>
         </a>
         <form class="header-search" data-search-form>
         <label class="sr-only" for="header-query">Buscar produto ou categoria</label>
@@ -107,7 +110,7 @@
     uiRoot.innerHTML = `<div class="modal-backdrop" data-auth-modal hidden>
         <section class="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-description" tabindex="-1">
         <button class="modal-close" type="button" data-close-modal aria-label="Fechar janela">×</button>
-        <p class="auth-kicker">Sua conta Taxatio</p>
+        <p class="auth-kicker">Sua conta Parry Help</p>
         <h2 id="auth-title">Entre na conversa.</h2>
         <p id="auth-description" data-auth-description>Acompanhe suas avaliações e ajude outras pessoas a escolher.</p>
         <div class="modal-tabs" role="tablist" aria-label="Acesso à conta">
@@ -167,7 +170,7 @@
         <button class="modal-close" type="button" data-close-terms aria-label="Fechar termos">×</button>
         <p class="auth-kicker">Informações legais</p>
         <h2 id="terms-title">Termos e consentimento</h2>
-        <p id="terms-description">Consulte os termos que regulam o uso do ParryHelp e o tratamento de dados pessoais.</p>
+        <p id="terms-description">Consulte os termos que regulam o uso do Parry Help e o tratamento de dados pessoais.</p>
         <div class="terms-tabs" role="tablist" aria-label="Documentos legais">
         <button type="button" role="tab" id="terms-tab-uso" aria-selected="true" data-terms-tab="uso">Termos de Uso</button>
         <button type="button" role="tab" id="terms-tab-consentimento" aria-selected="false" data-terms-tab="consentimento">Consentimento de dados</button>
@@ -551,11 +554,11 @@
         updateAuth();
         showToast(
           isRegister
-            ? "Conta criada. Bem-vindo à Taxatio."
+            ? "Conta criada. Bem-vindo ao Parry Help."
             : `Olá, ${user.nome.split(" ")[0]}.`,
         );
         document.dispatchEvent(
-          new CustomEvent("taxatio:login", {
+          new CustomEvent("parryhelp:login", {
             detail: user,
           }),
         );
@@ -584,7 +587,7 @@
   if (!localStorage.getItem("taxatio_consent_seen"))
     document.querySelector("[data-consent]")?.removeAttribute("hidden");
   updateAuth();
-  window.Taxatio = {
+  window.ParryHelp = {
     API_URL,
     apiFetch,
     escapeHTML,

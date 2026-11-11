@@ -1,5 +1,5 @@
 (() => {
-  const escape = Taxatio.escapeHTML;
+  const escape = ParryHelp.escapeHTML;
   const productForm = document.querySelector("[data-product-form]");
   const categoryForm = document.querySelector("[data-category-form]");
   let products = [];
@@ -71,8 +71,8 @@
   async function load() {
     try {
       [products, categories] = await Promise.all([
-        Taxatio.apiFetch("/produtos"),
-        Taxatio.apiFetch("/categorias"),
+        ParryHelp.apiFetch("/produtos"),
+        ParryHelp.apiFetch("/categorias"),
       ]);
       renderCategories();
       renderProducts();
@@ -112,7 +112,7 @@
     button.disabled = true;
     error.textContent = "";
     try {
-      await Taxatio.apiFetch(isEditing ? `/produtos/${id}` : "/produtos", {
+      await ParryHelp.apiFetch(isEditing ? `/produtos/${id}` : "/produtos", {
         method: isEditing ? "PUT" : "POST",
         body: JSON.stringify({
           nome: data.nome.trim(),
@@ -121,7 +121,7 @@
           imagem_url: data.imagem_url.trim(),
         }),
       });
-      Taxatio.showToast(isEditing ? "Produto atualizado." : "Produto cadastrado.");
+      ParryHelp.showToast(isEditing ? "Produto atualizado." : "Produto cadastrado.");
       resetProductForm();
       await load();
     } catch (requestError) {
@@ -141,11 +141,11 @@
     button.disabled = true;
     error.textContent = "";
     try {
-      await Taxatio.apiFetch(isEditing ? `/categorias/${id}` : "/categorias", {
+      await ParryHelp.apiFetch(isEditing ? `/categorias/${id}` : "/categorias", {
         method: isEditing ? "PUT" : "POST",
         body: JSON.stringify({ nome: data.nome.trim() }),
       });
-      Taxatio.showToast(isEditing ? "Categoria atualizada." : "Categoria cadastrada.");
+      ParryHelp.showToast(isEditing ? "Categoria atualizada." : "Categoria cadastrada.");
       resetCategoryForm();
       await load();
     } catch (requestError) {
@@ -180,12 +180,12 @@
       if (!window.confirm("Excluir este produto e as avaliações associadas?")) return;
       productDelete.disabled = true;
       try {
-        await Taxatio.apiFetch(`/produtos/${id}`, { method: "DELETE" });
-        Taxatio.showToast("Produto excluído.");
+        await ParryHelp.apiFetch(`/produtos/${id}`, { method: "DELETE" });
+        ParryHelp.showToast("Produto excluído.");
         resetProductForm();
         await load();
       } catch (error) {
-        Taxatio.showToast(error.message, true);
+        ParryHelp.showToast(error.message, true);
         productDelete.disabled = false;
       }
       return;
@@ -212,12 +212,12 @@
       if (!window.confirm("Excluir esta categoria?")) return;
       categoryDelete.disabled = true;
       try {
-        await Taxatio.apiFetch(`/categorias/${id}`, { method: "DELETE" });
-        Taxatio.showToast("Categoria excluída.");
+        await ParryHelp.apiFetch(`/categorias/${id}`, { method: "DELETE" });
+        ParryHelp.showToast("Categoria excluída.");
         resetCategoryForm();
         await load();
       } catch (error) {
-        Taxatio.showToast(error.message, true);
+        ParryHelp.showToast(error.message, true);
         categoryDelete.disabled = false;
       }
     }

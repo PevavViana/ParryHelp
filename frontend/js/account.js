@@ -1,23 +1,23 @@
 (() => {
   const root = document.querySelector("[data-account-content]");
-  const escape = Taxatio.escapeHTML;
+  const escape = ParryHelp.escapeHTML;
   async function load() {
-    const user = Taxatio.getUsuarioLogado();
+    const user = ParryHelp.getUsuarioLogado();
     if (!user) {
       root.innerHTML = `<div class="empty-state">
         <span class="empty-mark">↗</span>
         <h2>Entre para abrir seu espaço.</h2>
         <p>Use seu cadastro para acompanhar e editar suas avaliações.</p>
-        <button class="button button-primary" data-open-auth data-auth-mode="login">Entrar na Taxatio</button>
+        <button class="button button-primary" data-open-auth data-auth-mode="login">Entrar no Parry Help</button>
         </div>`;
       return;
     }
     root.innerHTML = '<div class="skeleton-row"></div>';
     try {
       const [profile, history, products] = await Promise.all([
-        Taxatio.apiFetch(`/usuarios/${Number(user.id)}`),
-        Taxatio.apiFetch(`/usuarios/${Number(user.id)}/avaliacoes`),
-        Taxatio.apiFetch("/produtos"),
+        ParryHelp.apiFetch(`/usuarios/${Number(user.id)}`),
+        ParryHelp.apiFetch(`/usuarios/${Number(user.id)}/avaliacoes`),
+        ParryHelp.apiFetch("/produtos"),
       ]);
       history.forEach((review) => {
         review.produto_id = products.find(
@@ -108,7 +108,7 @@
           localStorage.setItem("taxatio_theme", choice);
           document.documentElement.dataset.theme = choice;
         }
-        Taxatio.showToast("Preferência de tema atualizada.");
+        ParryHelp.showToast("Preferência de tema atualizada.");
       }),
     );
     root
@@ -121,15 +121,15 @@
         )
           return;
         try {
-          await Taxatio.apiFetch(`/usuarios/${Number(user.id)}`, {
+          await ParryHelp.apiFetch(`/usuarios/${Number(user.id)}`, {
             method: "DELETE",
           });
           localStorage.removeItem("taxatio_usuario");
-          Taxatio.updateAuth();
-          Taxatio.showToast("Conta excluída.");
+          ParryHelp.updateAuth();
+          ParryHelp.showToast("Conta excluída.");
           load();
         } catch (error) {
-          Taxatio.showToast(error.message, true);
+          ParryHelp.showToast(error.message, true);
         }
       });
   }
@@ -170,13 +170,13 @@
       };
       if (fields.senha) payload.senha = fields.senha;
       try {
-        const updated = await Taxatio.apiFetch(`/usuarios/${Number(user.id)}`, {
+        const updated = await ParryHelp.apiFetch(`/usuarios/${Number(user.id)}`, {
           method: "PUT",
           body: JSON.stringify(payload),
         });
         localStorage.setItem("taxatio_usuario", JSON.stringify(updated));
-        Taxatio.updateAuth();
-        Taxatio.showToast("Seus dados foram atualizados.");
+        ParryHelp.updateAuth();
+        ParryHelp.showToast("Seus dados foram atualizados.");
         load();
       } catch (failure) {
         error.textContent = failure.message;

@@ -1,23 +1,23 @@
 # TERMO DE CONSENTIMENTO PARA TRATAMENTO DE DADOS PESSOAIS – PARRYHELP
 
-Este Termo de Consentimento formaliza sua autorização expressa, livre, informada e inequívoca para o tratamento de seus dados pessoais pelo Projeto ParryHelp, em conformidade com a Lei nº 13.709/2018 – Lei Geral de Proteção de Dados (LGPD), bem como com os princípios e diretrizes das normas ISO/IEC 27001, ISO/IEC 27701 e ISO/IEC 29100, que estabelecem boas práticas de segurança da informação, privacidade e proteção de dados pessoais.
+Este Termo de Consentimento formaliza sua autorização expressa, livre, informada e inequívoca para o tratamento de seus dados pessoais pelo Projeto Parry Help, em conformidade com a Lei nº 13.709/2018 – Lei Geral de Proteção de Dados (LGPD), bem como com os princípios e diretrizes das normas ISO/IEC 27001, ISO/IEC 27701 e ISO/IEC 29100, que estabelecem boas práticas de segurança da informação, privacidade e proteção de dados pessoais.
 
-O consentimento do titular é uma das bases legais para o tratamento de dados pessoais, conforme o art. 7º, I, da LGPD, devendo ser registrado e mantido como evidência pelo Projeto ParryHelp.
+O consentimento do titular é uma das bases legais para o tratamento de dados pessoais, conforme o art. 7º, I, da LGPD, devendo ser registrado e mantido como evidência pelo Projeto Parry Help.
 
 Ao utilizar o sistema, o titular declara ter lido, compreendido e consentido expressamente com o tratamento de seus dados pessoais, nos termos a seguir:
 
 ## CLÁUSULA PRIMEIRA – DO OBJETO DO CONSENTIMENTO E DOS DADOS TRATADOS
 
-O titular AUTORIZA o Projeto ParryHelp a tratar os seguintes dados pessoais:
+O titular AUTORIZA o Projeto Parry Help a tratar os seguintes dados pessoais:
 
-* Nome completo: utilizado para identificação do cliente e correta vinculação das informações e documentos relacionados à sua contratação com o ParryHelp.
-* CPF: utilizado para identificação do cliente e para a formalização, manutenção e comprovação do contrato de originalidade estabelecido entre o cliente e o ParryHelp.
+* Nome completo: utilizado para identificação do cliente e correta vinculação das informações e documentos relacionados à sua contratação com o Parry Help.
+* CPF: utilizado para identificação do cliente e para a formalização, manutenção e comprovação do contrato de originalidade estabelecido entre o cliente e o Parry Help.
 * E-mail: utilizado para comunicação com o cliente, envio de informações relacionadas ao serviço e demais comunicações necessárias à execução da relação estabelecida.
 * Telefone: utilizado para comunicação e contato com o cliente quando necessário ao atendimento, suporte ou execução da relação estabelecida.
 
 Os dados pessoais serão tratados exclusivamente para as finalidades descritas neste Termo, observando-se os princípios da necessidade, finalidade, adequação, segurança, transparência e prevenção previstos na LGPD.
 
-Atenção: Ainda que não haja coleta direta de dados sensíveis, estes podem eventualmente estar contidos em informações ou documentos fornecidos pelo próprio titular. Nestes casos, o ParryHelp compromete-se a adotar medidas reforçadas de segurança e governança em conformidade com a LGPD e a ISO/IEC 27701.
+Atenção: Ainda que não haja coleta direta de dados sensíveis, estes podem eventualmente estar contidos em informações ou documentos fornecidos pelo próprio titular. Nestes casos, o Parry Help compromete-se a adotar medidas reforçadas de segurança e governança em conformidade com a LGPD e a ISO/IEC 27701.
 
 ## CLÁUSULA SEGUNDA – DAS FINALIDADES DO TRATAMENTO
 
@@ -26,7 +26,7 @@ Os dados pessoais serão utilizados exclusivamente para:
 1. Identificação do cliente, por meio do nome completo, permitindo a correta identificação e individualização do titular.
 2. Formalização, manutenção e comprovação do contrato de originalidade, mediante utilização do CPF do cliente.
 3. Contato e comunicação com o cliente, por meio do e-mail e telefone fornecidos.
-4. Atendimento e suporte ao cliente, quando necessário para a manutenção da relação estabelecida com o ParryHelp.
+4. Atendimento e suporte ao cliente, quando necessário para a manutenção da relação estabelecida com o Parry Help.
 5. Manutenção da segurança e integridade das informações, adotando medidas técnicas e administrativas destinadas à prevenção de acessos não autorizados, perdas, alterações ou incidentes de segurança.
 
 Base legal do tratamento: o tratamento dos dados pessoais elencados tem como fundamento principal o consentimento livre, informado e inequívoco do titular (art. 7º, I, da LGPD). Conforme cada atividade, poderão ser aplicadas adicionalmente as bases do cumprimento de obrigação legal ou regulatória (art. 7º, II), da execução de contrato (art. 7º, V) e do legítimo interesse do controlador (art. 7º, IX), desde que não prevaleçam sobre os direitos e liberdades fundamentais do titular.
@@ -67,7 +67,7 @@ O titular poderá, a qualquer momento, mediante solicitação:
 
 Canal oficial para dúvidas, solicitações e exercício de direitos do titular:
 
-Nome: ParryHelp
+Nome: Parry Help
 E-mail: ____________________________________________
 Telefone: __________________________________________
 
@@ -77,7 +77,7 @@ Caso a resposta não seja satisfatória, o titular poderá peticionar diretament
 
 ## CLÁUSULA OITAVA – DA IDENTIFICAÇÃO DO ENCARREGADO (DPO)
 
-O Projeto ParryHelp indica como Encarregado de Proteção de Dados (DPO):
+O Projeto Parry Help indica como Encarregado de Proteção de Dados (DPO):
 
 Nome completo: ____________________________________________
 Cargo/Função: _____________________________________________
@@ -92,7 +92,7 @@ A revogação do consentimento não afeta a licitude do tratamento realizado no 
 
 ## CLÁUSULA DÉCIMA – DO TRATAMENTO DE DADOS DE CRIANÇAS E ADOLESCENTES
 
-O ParryHelp observa rigorosamente o disposto no art. 14 da LGPD, quando aplicável, e adota medidas específicas para proteger os dados pessoais de crianças e adolescentes, conforme abaixo:
+O Parry Help observa rigorosamente o disposto no art. 14 da LGPD, quando aplicável, e adota medidas específicas para proteger os dados pessoais de crianças e adolescentes, conforme abaixo:
 
 * O tratamento de dados de crianças menores de 12 anos será realizado exclusivamente mediante consentimento específico e em destaque de pelo menos um dos pais ou responsável legal.
 * O tratamento de dados de adolescentes (12 a 18 anos) ocorrerá sempre no melhor interesse do titular, respeitando sua privacidade, desenvolvimento e dignidade.

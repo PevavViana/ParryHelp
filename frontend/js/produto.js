@@ -4,7 +4,7 @@
   let product;
   let reviews = [];
   let authors = {};
-  const escape = Taxatio.escapeHTML;
+  const escape = ParryHelp.escapeHTML;
   const dateToISO = (value) => {
     const match = String(value || "").match(/^(\d{2})-(\d{2})-(\d{4})$/);
     return match ? `${match[3]}-${match[2]}-${match[1]}` : "";
@@ -21,9 +21,9 @@
     categories.find((item) => Number(item.id) === Number(product.categoria_id))
       ?.nome || "Sem categoria";
   function render(category) {
-    const user = Taxatio.getUsuarioLogado();
+    const user = ParryHelp.getUsuarioLogado();
     const average = Number(product.media_notas || 0);
-    document.title = `${product.nome} — Taxatio`;
+    document.title = `${product.nome} — Parry Help`;
     shell.innerHTML = `<p class="detail-topline">
         <a href="catalogo.html">← Voltar ao catálogo</a>
         </p>
@@ -90,8 +90,8 @@
     shell
       .querySelector("[data-review-action]")
       .addEventListener("click", () => {
-        if (!Taxatio.getUsuarioLogado()) {
-          Taxatio.openAuth("login");
+        if (!ParryHelp.getUsuarioLogado()) {
+          ParryHelp.openAuth("login");
           return;
         }
         reviewForm();
@@ -104,7 +104,7 @@
         ids = [];
       }
       if (!ids.includes(Number(product.id)) && ids.length >= 3) {
-        Taxatio.showToast("A comparação já tem três produtos.", true);
+        ParryHelp.showToast("A comparação já tem três produtos.", true);
         return;
       }
       sessionStorage.setItem(
@@ -227,16 +227,16 @@
           payload.produto_id = Number(id);
           payload.data = dateToAPI(todayISO());
         }
-        await Taxatio.apiFetch(
+        await ParryHelp.apiFetch(
           review
             ? `/avaliacoes/${review.id}`
-            : `/usuarios/${Taxatio.getUsuarioLogado().id}/avaliacoes`,
+            : `/usuarios/${ParryHelp.getUsuarioLogado().id}/avaliacoes`,
           {
             method: review ? "PUT" : "POST",
             body: JSON.stringify(payload),
           },
         );
-        Taxatio.showToast(
+        ParryHelp.showToast(
           review ? "Avaliação atualizada." : "Avaliação publicada.",
         );
         await load();
@@ -255,13 +255,13 @@
     )
       return;
     try {
-      await Taxatio.apiFetch(`/avaliacoes/${reviewId}`, {
+      await ParryHelp.apiFetch(`/avaliacoes/${reviewId}`, {
         method: "DELETE",
       });
-      Taxatio.showToast("Avaliação excluída.");
+      ParryHelp.showToast("Avaliação excluída.");
       await load();
     } catch (error) {
-      Taxatio.showToast(error.message, true);
+      ParryHelp.showToast(error.message, true);
     }
   }
   async function generateSummary() {
@@ -270,7 +270,7 @@
     button.disabled = true;
     button.textContent = "Preparando resumo…";
     try {
-      const result = await Taxatio.apiFetch("/api/tutoria", {
+      const result = await ParryHelp.apiFetch("/api/tutoria", {
         method: "POST",
         body: JSON.stringify({
           tipo: "avaliacoes_relevantes",
@@ -297,11 +297,11 @@
     }
     try {
       [product, reviews] = await Promise.all([
-        Taxatio.apiFetch(`/produtos/${id}`),
-        Taxatio.apiFetch("/avaliacoes"),
+        ParryHelp.apiFetch(`/produtos/${id}`),
+        ParryHelp.apiFetch("/avaliacoes"),
       ]);
       reviews = reviews.filter((item) => Number(item.produto_id) === id);
-      const categories = await Taxatio.apiFetch("/categorias");
+      const categories = await ParryHelp.apiFetch("/categorias");
       const category = categoryFor(categories);
       authors = {};
       render(category);
@@ -315,7 +315,7 @@
       shell.querySelector("[data-retry]").addEventListener("click", load);
     }
   }
-  document.addEventListener("taxatio:login", () => {
+  document.addEventListener("parryhelp:login", () => {
     const area = shell.querySelector("[data-review-form-area]");
     if (area && !area.firstElementChild) reviewForm();
   });

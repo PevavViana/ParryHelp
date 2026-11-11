@@ -4,7 +4,7 @@
   const searchHint = document.querySelector("[data-compare-search-hint]");
   const content = document.querySelector("[data-compare-content]");
   const clearButton = document.querySelector("[data-clear-compare]");
-  const escape = Taxatio.escapeHTML;
+  const escape = ParryHelp.escapeHTML;
   let products = [];
   let categories = [];
   let reviews = [];
@@ -193,9 +193,9 @@
   async function load() {
     try {
       [products, categories, reviews] = await Promise.all([
-        Taxatio.apiFetch("/produtos"),
-        Taxatio.apiFetch("/categorias"),
-        Taxatio.apiFetch("/avaliacoes"),
+        ParryHelp.apiFetch("/produtos"),
+        ParryHelp.apiFetch("/categorias"),
+        ParryHelp.apiFetch("/avaliacoes"),
       ]);
 
       render();
